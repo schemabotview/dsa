@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 340" width="580" height="340" font-family="monospace" font-size="12">
+  <rect width="580" height="340" fill="#0f1117" rx="12"/>
+  <text x="290" y="28" fill="#e2e8f0" font-size="14" font-weight="bold" text-anchor="middle">Hash Map Internals — Key → Hash → Bucket Index</text>
+
+  <!-- KEYS (left) -->
+  <text x="72" y="54" fill="#94a3b8" font-size="11" text-anchor="middle">keys</text>
+
+  <rect x="20" y="62" width="104" height="26" fill="#1e293b" rx="4" stroke="#475569" stroke-width="1"/>
+  <text x="72" y="79" fill="#f8fafc" font-size="12" text-anchor="middle">"name"</text>
+
+  <rect x="20" y="98" width="104" height="26" fill="#1e293b" rx="4" stroke="#475569" stroke-width="1"/>
+  <text x="72" y="115" fill="#f8fafc" font-size="12" text-anchor="middle">"age"</text>
+
+  <rect x="20" y="134" width="104" height="26" fill="#1e293b" rx="4" stroke="#475569" stroke-width="1"/>
+  <text x="72" y="151" fill="#f8fafc" font-size="12" text-anchor="middle">"city"</text>
+
+  <rect x="20" y="170" width="104" height="26" fill="#1e293b" rx="4" stroke="#475569" stroke-width="1"/>
+  <text x="72" y="187" fill="#f8fafc" font-size="12" text-anchor="middle">"score"</text>
+
+  <rect x="20" y="206" width="104" height="26" fill="#1e293b" rx="4" stroke="#475569" stroke-width="1"/>
+  <text x="72" y="223" fill="#f8fafc" font-size="12" text-anchor="middle">"email"</text>
+
+  <!-- HASH FUNCTION (centre) -->
+  <rect x="168" y="110" width="120" height="80" fill="#1e3a5f" rx="8" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="228" y="146" fill="#7dd3fc" font-size="12" font-weight="bold" text-anchor="middle">hash(key)</text>
+  <text x="228" y="162" fill="#475569" font-size="10" text-anchor="middle">% table_size</text>
+  <text x="228" y="176" fill="#475569" font-size="10" text-anchor="middle">→ index 0..7</text>
+
+  <!-- Arrows: keys → hash function -->
+  <line x1="124" y1="75"  x2="166" y2="140" stroke="#475569" stroke-width="1" marker-end="url(#da)"/>
+  <line x1="124" y1="111" x2="166" y2="145" stroke="#475569" stroke-width="1" marker-end="url(#da)"/>
+  <line x1="124" y1="147" x2="166" y2="150" stroke="#475569" stroke-width="1" marker-end="url(#da)"/>
+  <line x1="124" y1="183" x2="166" y2="155" stroke="#475569" stroke-width="1" marker-end="url(#da)"/>
+  <line x1="124" y1="219" x2="166" y2="162" stroke="#475569" stroke-width="1" marker-end="url(#da)"/>
+
+  <!-- BUCKET ARRAY (right) -->
+  <text x="396" y="54" fill="#94a3b8" font-size="11" text-anchor="middle">bucket array</text>
+
+  <!-- 8 buckets, each 34px tall, start y=62 -->
+  <!-- bucket 0 — empty -->
+  <rect x="310" y="62"  width="36" height="32" fill="#0d1117" rx="2" stroke="#1e293b" stroke-width="1"/>
+  <text x="328" y="82"  fill="#334155" font-size="11" text-anchor="middle">0</text>
+  <text x="355" y="82"  fill="#475569" font-size="10">—</text>
+
+  <!-- bucket 1 — "name" → "Alice" -->
+  <rect x="310" y="96"  width="36" height="32" fill="#14532d" rx="2" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="328" y="116" fill="#86efac" font-size="11" text-anchor="middle">1</text>
+  <rect x="350" y="98"  width="150" height="28" fill="#0a2a14" rx="3" stroke="#22c55e" stroke-width="1"/>
+  <text x="425" y="116" fill="#86efac" font-size="11" text-anchor="middle">"name" → "Alice"</text>
+
+  <!-- bucket 2 — empty -->
+  <rect x="310" y="130" width="36" height="32" fill="#0d1117" rx="2" stroke="#1e293b" stroke-width="1"/>
+  <text x="328" y="150" fill="#334155" font-size="11" text-anchor="middle">2</text>
+  <text x="355" y="150" fill="#475569" font-size="10">—</text>
+
+  <!-- bucket 3 — "age" → 30 -->
+  <rect x="310" y="164" width="36" height="32" fill="#14532d" rx="2" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="328" y="184" fill="#86efac" font-size="11" text-anchor="middle">3</text>
+  <rect x="350" y="166" width="150" height="28" fill="#0a2a14" rx="3" stroke="#22c55e" stroke-width="1"/>
+  <text x="425" y="184" fill="#86efac" font-size="11" text-anchor="middle">"age" → 30</text>
+
+  <!-- bucket 4 — empty -->
+  <rect x="310" y="198" width="36" height="32" fill="#0d1117" rx="2" stroke="#1e293b" stroke-width="1"/>
+  <text x="328" y="218" fill="#334155" font-size="11" text-anchor="middle">4</text>
+  <text x="355" y="218" fill="#475569" font-size="10">—</text>
+
+  <!-- bucket 5 — "city" + "email" COLLISION (chaining) -->
+  <rect x="310" y="232" width="36" height="32" fill="#3b1f6b" rx="2" stroke="#a855f7" stroke-width="1.5"/>
+  <text x="328" y="252" fill="#c084fc" font-size="11" text-anchor="middle">5</text>
+  <!-- chain node 1 -->
+  <rect x="350" y="234" width="136" height="26" fill="#2a1050" rx="3" stroke="#a855f7" stroke-width="1"/>
+  <text x="418" y="251" fill="#c084fc" font-size="11" text-anchor="middle">"city" → "NYC"</text>
+  <text x="488" y="247" fill="#a855f7" font-size="11">→</text>
+  <!-- chain node 2 -->
+  <rect x="350" y="264" width="160" height="26" fill="#2a1050" rx="3" stroke="#a855f7" stroke-width="1"/>
+  <text x="430" y="281" fill="#c084fc" font-size="11" text-anchor="middle">"email"→"a@b.c"</text>
+  <text x="350" y="260" fill="#a855f7" font-size="9">collision → chain</text>
+
+  <!-- bucket 6 — empty -->
+  <rect x="310" y="296" width="36" height="32" fill="#0d1117" rx="2" stroke="#1e293b" stroke-width="1"/>
+  <text x="328" y="316" fill="#334155" font-size="11" text-anchor="middle">6</text>
+  <text x="355" y="316" fill="#475569" font-size="10">—</text>
+
+  <!-- Arrows: hash function → specific buckets -->
+  <line x1="288" y1="140" x2="308" y2="112" stroke="#22c55e" stroke-width="1.5" marker-end="url(#ga)"/>
+  <line x1="288" y1="145" x2="308" y2="180" stroke="#22c55e" stroke-width="1.5" marker-end="url(#ga)"/>
+  <line x1="288" y1="150" x2="308" y2="248" stroke="#a855f7" stroke-width="1.5" marker-end="url(#pa)"/>
+  <line x1="288" y1="155" x2="308" y2="248" stroke="#a855f7" stroke-width="1" stroke-dasharray="3" marker-end="url(#pa)"/>
+
+  <!-- score → bucket 6 (not labelled for simplicity, shown as empty arrow) -->
+
+  <!-- Formula -->
+  <rect x="20" y="300" width="280" height="30" fill="#0d1117" rx="4" stroke="#1e293b" stroke-width="1"/>
+  <text x="160" y="319" fill="#94a3b8" font-size="11" text-anchor="middle">index = hash("name") % 8  =  1   →  O(1)</text>
+
+  <defs>
+    <marker id="da" markerWidth="5" markerHeight="5" refX="3" refY="3" orient="auto">
+      <path d="M0,0 L5,2.5 L0,5 Z" fill="#475569"/>
+    </marker>
+    <marker id="ga" markerWidth="5" markerHeight="5" refX="3" refY="3" orient="auto">
+      <path d="M0,0 L5,2.5 L0,5 Z" fill="#22c55e"/>
+    </marker>
+    <marker id="pa" markerWidth="5" markerHeight="5" refX="3" refY="3" orient="auto">
+      <path d="M0,0 L5,2.5 L0,5 Z" fill="#a855f7"/>
+    </marker>
+  </defs>
+</svg>
