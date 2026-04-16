@@ -1,0 +1,73 @@
+{
+  "sections": [
+    {
+      "title": "How Computers Think",
+      "notebooks": [
+        "01-how-computers-store-data",
+        "02-complexity-analysis"
+      ]
+    },
+    {
+      "title": "Primitive & Sequential Data",
+      "notebooks": [
+        "03-primitive-types-and-memory",
+        "04-arrays-and-strings",
+        "05-linked-lists"
+      ]
+    },
+    {
+      "title": "Abstract Linear Structures",
+      "notebooks": [
+        "06-stacks-and-queues",
+        "07-hashmaps-and-hashsets"
+      ]
+    },
+    {
+      "title": "Recursion",
+      "notebooks": [
+        "08-recursion-and-the-call-stack"
+      ]
+    },
+    {
+      "title": "Trees",
+      "notebooks": [
+        "09-trees-and-binary-trees",
+        "10-binary-search-trees",
+        "11-heaps-and-priority-queues",
+        "12-tries"
+      ]
+    },
+    {
+      "title": "Graphs",
+      "notebooks": [
+        "13-graph-representation",
+        "14-bfs-and-dfs",
+        "15-graph-algorithms"
+      ]
+    },
+    {
+      "title": "Search & Sort",
+      "notebooks": [
+        "16-binary-search",
+        "17-sorting-algorithms"
+      ]
+    },
+    {
+      "title": "Problem-Solving Patterns",
+      "notebooks": [
+        "18-two-pointers-and-sliding-window",
+        "19-backtracking",
+        "20-dynamic-programming-fundamentals",
+        "21-dynamic-programming-patterns",
+        "22-greedy-algorithms",
+        "23-bit-manipulation"
+      ]
+    },
+    {
+      "title": "Interview Prep",
+      "notebooks": [
+        "24-interview-patterns"
+      ]
+    }
+  ]
+}
