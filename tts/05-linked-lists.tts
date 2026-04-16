@@ -1,0 +1,89 @@
+Arrays are fast to index but slow to insert and delete — because shifting elements costs linear time. Linked lists flip that trade-off: they sacrifice constant-time index access in exchange for constant-time insertion and deletion anywhere in the list. Understanding why requires looking at how linked lists store data — not in a contiguous block, but as individual nodes scattered across the heap, connected by pointers.
+
+What is a Linked List.
+
+A linked list is a chain of nodes. Each node is a small object on the heap containing two things: a value — the data being stored — and a pointer, which is a reference to the next node in the chain.
+
+The list itself holds a reference to the first node, called the head. The last node in the chain points to nothing — marking the end of the list. Because nodes are independent heap objects, they can live at completely different memory addresses. There is no requirement for them to be next to each other. The chain is maintained entirely by the next pointers.
+
+Think of a treasure hunt. Each clue tells you the value at the current location and the address of the next clue. You cannot jump directly to clue five — you must follow clues one, two, three, and four first. That is exactly how traversal works in a linked list.
+
+Linked List versus Array.
+
+The contrast between arrays and linked lists comes down to how they use memory.
+
+Arrays store elements in contiguous slots. Because every element is the same size and they sit side by side, the address of any element can be computed in one arithmetic step. That is why array index access is constant time. But inserting or deleting in the middle means shifting every element after the insertion point — linear time.
+
+Linked lists store nodes wherever the heap has space. Finding the element at index five means starting at the head and following five pointers — linear time. But inserting or deleting at a position you already have a reference to requires only updating one or two pointers — constant time, regardless of how long the list is.
+
+There is an important nuance here. The constant-time insert and delete only applies when you already have a reference to the node where the operation happens. If you first have to search for the right position, that search is linear — and the total cost is linear. The pointer rewiring itself is constant time, but finding the spot is not.
+
+Arrays also have a significant advantage in practice that is easy to overlook: cache performance. Because array elements are contiguous in memory, the processor can load several elements at once into its cache. Linked list nodes are scattered across the heap, so each pointer follow is a separate memory access that may cause a cache miss. For sequential iteration over large collections, arrays are often meaningfully faster than linked lists in practice, even when the theoretical complexity is the same.
+
+Insert and Delete — Pointer Rewiring.
+
+When you insert a new node between node A and node C, you perform exactly two pointer updates. First, you set the new node's next pointer to point to C. Second, you update A's next pointer to point to the new node. The rest of the list is completely undisturbed — it does not matter if the list has ten elements or ten million.
+
+Deletion is equally simple. To remove a node B that sits between A and C, you set A's next pointer to point directly to C, bypassing B entirely. B becomes unreachable and will be reclaimed by the garbage collector. Again, just one pointer change.
+
+Singly Linked List.
+
+A singly linked list is the basic form — each node has a value and a single next pointer. The two most common operations are prepending at the head and appending at the tail.
+
+Prepending at the head is constant time: create a new node, set its next pointer to the current head, then update the head reference to the new node. Two steps, done.
+
+Appending at the tail without a tail pointer requires walking the entire list to find the last node — linear time. This is why many implementations keep a separate tail reference alongside the head, making tail append constant time as well.
+
+Inserting after a known node is constant time for the actual rewiring, but linear if you first need to find the target by value. Deletion works similarly — constant time to rewire once you have the predecessor node, linear if you need to search for it.
+
+Doubly Linked List.
+
+A doubly linked list adds a second pointer to every node — a previous pointer that points backward to the preceding node. This gives you two important capabilities.
+
+First, backward traversal — you can walk the list in either direction. Second, and more importantly for algorithms, you can delete any node in constant time if you have a direct reference to it. With a singly linked list, deleting a node requires finding its predecessor first, which is linear. With a doubly linked list, the previous pointer gives you the predecessor immediately.
+
+The trade-off is memory — every node now stores two pointers instead of one.
+
+A common implementation technique for doubly linked lists is to use sentinel nodes — a dummy head and a dummy tail that are always present even when the list is empty. This eliminates all the special-case logic you would otherwise need for inserting into an empty list or deleting the first or last real node. All operations become uniform: every real node always has both a valid previous and a valid next.
+
+Python's built-in deque — short for double-ended queue — is implemented as a doubly linked list. It gives constant-time append and pop from both ends, which makes it the right tool whenever you need a queue.
+
+Reversing a Linked List.
+
+Reversing a singly linked list is a classic pointer manipulation problem. You walk the list once with three variables: previous, current, and next. At each step, you save the next node before overwriting anything, flip the current node's next pointer to point backward to previous, then advance both previous and current forward. When current reaches the end of the list, previous is pointing at the new head.
+
+The key insight is that you flip one pointer per node, each flip takes constant time, and you visit each node exactly once — linear time overall, with no extra memory needed beyond three pointer variables.
+
+Floyd's Cycle Detection.
+
+Imagine two runners on a circular track. One runs at normal speed. The other runs twice as fast. If the track is a closed loop, the fast runner will eventually lap the slow runner and they will meet. If the track has an end — no loop — the fast runner reaches the end first and they never meet.
+
+This is Floyd's cycle detection algorithm, applied to linked lists. You use two pointers: a slow pointer that advances one node at a time and a fast pointer that advances two nodes at a time. If the list contains a cycle, the fast pointer will eventually catch up to the slow pointer and they will land on the same node. If there is no cycle, the fast pointer reaches the end of the list and you return false.
+
+The algorithm uses constant extra space — just two pointer variables — and runs in linear time. No visited set, no extra data structure needed.
+
+Finding the Middle Node.
+
+The same fast and slow pointer technique finds the middle of a list without knowing its length. You start both pointers at the head and advance them — slow by one step, fast by two steps. When the fast pointer reaches the end of the list, the slow pointer is at the middle. This works because fast covers twice the distance of slow, so when fast has traversed the full list, slow has traversed half.
+
+When to Use a Linked List.
+
+Reach for a linked list when you need frequent insertions and deletions at the head or tail — implementing a queue is the classic example. The doubly linked list with sentinel nodes is the backbone of the least recently used cache pattern, where you need constant-time insert, delete, and reorder.
+
+Prefer an array when you need fast index access, when you iterate sequentially and care about cache performance, or when memory overhead matters.
+
+In day-to-day Python code, the built-in list covers most needs. Use deque when you need constant-time operations at both ends. Reach for a custom linked list when the problem specifically requires pointer manipulation — which happens often in interview questions but rarely in production code.
+
+Key Takeaways.
+
+A linked list is a chain of nodes where each node holds a value and a pointer to the next node. Nodes are scattered across the heap — not contiguous like array elements.
+
+Index access is linear time because you must walk the chain from the head. Insert and delete at a position you already have a reference to are constant time because you only update one or two pointers.
+
+A doubly linked list adds a previous pointer, giving you constant-time deletion when you hold a direct reference to the node. Sentinel nodes simplify all edge cases.
+
+To reverse a linked list, walk it once with three pointers flipping each next pointer backward — linear time and constant space.
+
+Floyd's algorithm uses fast and slow pointers to detect cycles in linear time with no extra memory. The same pattern finds the middle of a list.
+
+In the next notebook we cover stacks and queues — two abstract data structures built on top of the array and linked list foundations we have just covered.
