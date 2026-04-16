@@ -109,5 +109,5 @@ Steps:
 - Every code example must appear in both Python and Kotlin (Python first, then Kotlin), each under a `### Python` / `### Kotlin` heading
 - Each notebook should be self-contained and readable top-to-bottom
 - Include time and space complexity analysis for every algorithm
-- Use SVG diagrams wherever a visual aids understanding more than prose — good candidates: memory layouts, pointer/node chains, tree structures, graph traversals, sliding window movement, DP tables. Save SVGs to `img/` and reference them in markdown cells via GitHub raw URL: `![Alt text](https://raw.githubusercontent.com/schemabotview/dsa/main/img/filename.svg)`
+- Use SVG diagrams wherever a visual aids understanding more than prose — good candidates: memory layouts, pointer/node chains, tree structures, graph traversals, sliding window movement, DP tables. Save SVGs to `img/` and reference them in markdown cells via GitHub raw URL: `![Alt text](https://raw.githubusercontent.com/schemabotview/dsa/main/img/filename.svg)`. Always set explicit `width` and `height` on the `<svg>` element matching the `viewBox` dimensions — without them the image stretches to fill the container
 - `.tts` files should be plain prose (no markdown, no code) — they are read aloud by TTS
