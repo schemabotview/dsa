@@ -1,0 +1,87 @@
+Recursion is a function calling itself. That one sentence sounds simple, but the consequences are deep. It is the natural language for trees, graphs, divide-and-conquer algorithms, and dynamic programming. Before you can truly understand any of those topics, you need to understand recursion — how it maps to the call stack, where it goes wrong, and how to make it efficient.
+
+The Two Essential Parts.
+
+Every correct recursive function has exactly two parts. The first is the base case — the condition under which the function stops calling itself and returns a direct answer. Without a base case, the function recurses forever until the call stack overflows. The second is the recursive case — the step where the function calls itself with a smaller or simpler version of the problem, moving toward the base case.
+
+The key insight is that each recursive call must make progress toward the base case. If it does not, you have infinite recursion.
+
+Consider factorial. Factorial of five is five times four times three times two times one — which equals one hundred and twenty. The base case is: if n is less than or equal to one, return one. The recursive case is: return n multiplied by factorial of n minus one. Notice how n minus one is strictly smaller than n — every call moves closer to the base case.
+
+The Call Stack.
+
+Every function call — recursive or not — pushes a stack frame onto the call stack. The frame stores the function's arguments, its local variables, and the return address — the point in the program where execution should resume once the function finishes.
+
+When a function returns, its frame is popped off the stack and control passes back to the caller. The call stack is a last-in, first-out structure — exactly the same as the stack data structure you saw in notebook six.
+
+For factorial of four, the stack grows four frames deep before hitting the base case. At that point the stack unwinds — each frame resumes, multiplies its local n by the result returned from below, and pops. Factorial of one returns one. Factorial of two gets that one, multiplies by two, returns two. Factorial of three gets two, multiplies by three, returns six. Factorial of four gets six, multiplies by four, returns twenty-four.
+
+You can make this unwinding visible by tracing the depth at each call — printing an indent proportional to how deep you are in the recursion. The output shows the call going down — deeper and deeper — and then returning back up, each level reporting its result.
+
+Recursion Tree and Overlapping Subproblems.
+
+The Fibonacci sequence is defined recursively: the nth Fibonacci number equals the sum of the two before it, with base cases of zero and one at positions zero and one respectively. The naive recursive implementation looks clean, but it hides a severe problem — it recomputes the same subproblems many times.
+
+Imagine drawing the recursion as a tree. At the root sits the call for fib of five. It branches into fib of four and fib of three. Each of those branches again. If you trace all the paths, fib of three is computed twice, fib of two is computed three times. For fib of fifty, the tree would have trillions of nodes — the time complexity is exponential, growing roughly as two to the power of n.
+
+You can confirm this by counting function calls. For fib of five the call count is around fifteen. For fib of thirty it exceeds two million. The result is the same, but the work explodes.
+
+Memoization.
+
+Memoization is the technique of caching the result of each unique subproblem the first time it is computed, and returning the cached result on any subsequent call. This converts the exponential recursion tree into a linear one — each unique input is computed exactly once.
+
+The idea is simple: before computing fib of n, check whether you already computed it. If the answer is in the cache, return it immediately. If not, compute it, store the result in the cache, and return it.
+
+Python's standard library provides a decorator called lru cache — short for least recently used cache — that does this automatically. You place it above any pure function and the runtime handles the caching for you. With lru cache, fib of thirty-five that previously took seconds now runs in microseconds. You can even call fib of one thousand instantly — the recursion tree collapses to a straight line of n unique calls.
+
+In Kotlin, you implement the same idea manually using a mutable map. Before recursing, check whether the map already contains the key. If it does, return the stored value. If not, compute the result, insert it into the map, and return it.
+
+Memoization is the bridge between naive recursion and dynamic programming, which you will explore in notebooks twenty and twenty-one.
+
+Stack Overflow and Recursion Depth Limits.
+
+The call stack has a fixed maximum size. In Python, the default recursion limit is one thousand frames. Exceeding it raises a recursion error. On the java virtual machine, which runs Kotlin, the stack is typically between five hundred kilobytes and one megabyte — deep recursion throws a stack overflow error.
+
+For algorithms on large inputs this is a real constraint. There are three ways to handle it.
+
+The first is to convert to iteration — use an explicit stack, a plain list or deque, instead of the call stack. This moves the recursive structure from implicit to visible, but removes the depth limit entirely.
+
+The second is to increase the limit. In Python you can call sys dot setrecursionlimit with a larger number. This is a workaround, not a fix — you are just raising the ceiling, not removing it.
+
+The third is tail recursion. A tail-recursive function makes its recursive call as the very last operation before returning. Some languages and compilers can optimise this to reuse the same stack frame instead of pushing a new one — eliminating the depth problem entirely. Neither Python nor the java virtual machine performs this optimisation, so it does not help in the languages used in this course.
+
+The reliable solution is iteration with an explicit stack.
+
+Common Recursion Patterns.
+
+Recursion appears in a handful of shapes that you will recognise over and over.
+
+The first is divide and conquer. Binary search splits the search space in half at each step. Given a sorted list, you compute the midpoint, compare the target to the midpoint value, and recurse into only the half that could contain the target. Each call halves the problem — logarithmic time, logarithmic stack depth.
+
+The second is structural recursion. When the data structure itself is recursive — like a nested list, a tree, or a graph — recursion is the natural tool. Flattening a deeply nested list is a clean example: for each element, if it is itself a list, recurse into it; otherwise append it to the result. The shape of the code mirrors the shape of the data.
+
+The third is mathematical recursion with an optimisation twist. Fast exponentiation computes a base raised to a power in logarithmic time rather than linear time. The key insight is that x to the power n, when n is even, equals x to the power n over two, squared. This halves the exponent at each step instead of reducing it by one. To compute two to the thirty-second power, naive recursion makes thirty-two multiplications — fast exponentiation makes only six.
+
+Recursion versus Iteration.
+
+Recursion and iteration are equally powerful — anything you can do with recursion you can do with iteration, and vice versa. The choice is about clarity and practicality.
+
+Use recursion when the problem is naturally recursive. Trees, graphs, divide-and-conquer, and structural problems on nested data all express cleanly as recursive functions. The code tends to match the mental model of the problem.
+
+Use iteration when the recursion depth is unbounded or when performance is critical. Iterative code carries no per-call overhead from pushing and popping frames. And with an explicit stack — a plain list you manage yourself — you get the same logical structure as recursion without the depth limit.
+
+The key mental model to carry forward is this: the call stack is literally a stack. Making it explicit by using a list does not change the algorithm — it just makes the stack visible and removes the system-imposed depth ceiling.
+
+Key Takeaways.
+
+Every recursive function needs a base case to stop and a recursive case that moves toward the base case. A missing base case means infinite recursion and a stack overflow.
+
+Each recursive call pushes a stack frame. Frames are popped in last-in, first-out order as functions return — the call stack is a stack.
+
+Memoization caches the result of each unique subproblem, converting exponential recursion trees into linear work. Python's lru cache decorator and a Kotlin mutable map both implement this pattern.
+
+Python's default recursion limit is one thousand frames. For deep recursion, convert to an explicit stack.
+
+Divide and conquer, structural recursion, and mathematical recursion are the three most common shapes. You can always replace recursion with an explicit stack plus a loop.
+
+In the next notebook we move into trees and binary trees — the data structure where recursion is not just useful but essential. Every tree traversal, every search, every insert is a recursive operation at its core. The foundation you have built here will make trees feel natural.
