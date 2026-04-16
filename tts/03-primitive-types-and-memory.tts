@@ -1,0 +1,99 @@
+Every data structure is ultimately built from primitive types — the fixed-size values that map directly onto hardware. Understanding what they are, how much memory they consume, and where their limits lie gives you a clearer mental model of why certain operations are fast, why overflow bugs happen, and how the type systems of Python and Kotlin differ from each other at the machine level.
+
+What Are Primitive Types.
+
+A primitive type is a data type that is built into the language and maps directly to a fixed number of bytes in memory. There is no object wrapping, no extra metadata — just raw bits sitting in a slot.
+
+In statically typed languages like Kotlin, primitives include integers of various sizes, floating-point numbers, booleans, and characters. In Python, everything is an object — there are no true primitives — but the same conceptual types exist and Python uses them under the hood in its C runtime.
+
+Knowing the size of a type tells you three things: how many bytes it occupies in memory, what range of values it can hold, and what happens if you try to store a value that exceeds that range.
+
+Integer Types.
+
+Integers store whole numbers. The difference between integer types is how many bytes they use — and therefore what range of values they can represent.
+
+A byte uses one byte of memory and can hold values from negative one twenty-eight to positive one twenty-seven. A short uses two bytes — from negative thirty-two thousand seven hundred and sixty-eight to positive thirty-two thousand seven hundred and sixty-seven. An int uses four bytes and covers roughly plus or minus two point one billion. A long uses eight bytes and can hold numbers up to about nine point two times ten to the eighteenth power — far larger than anything you will encounter in most programs.
+
+The formula behind these ranges is straightforward. An n-bit signed integer can hold values from negative two to the power of n minus one, up to two to the power of n minus one, minus one. One bit is used for the sign; the remaining bits encode the magnitude.
+
+In practice, int is the right default for almost all whole-number work. Switch to long when values can exceed two billion — for example, timestamps measured in milliseconds, file sizes, or very large counts. Byte and short are mainly useful in memory-constrained environments or when working with binary data protocols.
+
+Python handles integers differently from Kotlin. Python integers have no fixed size — they grow automatically to accommodate any value, no matter how large. Two to the power of one hundred is just as easy for Python as the number forty-two. The trade-off is that Python integers are heap-allocated objects with extra overhead, not lean four-byte values sitting on the stack.
+
+Integer Overflow.
+
+In languages with fixed-size integers like Kotlin and Java, adding one to the maximum value does not produce an error — it wraps around silently to the minimum value. This is called overflow, and it is a frequent source of bugs in loop counters, array indices, and financial calculations.
+
+Imagine a car odometer that rolls over from nine nine nine nine nine back to zero. The car did not break — it just ran out of digits. That is exactly what happens with integer overflow. The value wraps around to the other end of the range.
+
+Python is immune to overflow because its integers grow dynamically. In Kotlin, if you have the maximum int value and you add one to it, you get the minimum int value — negative two billion — with no warning. The safe approach is to use a long whenever there is any chance of the value exceeding two billion.
+
+Floating-Point Types.
+
+Floating-point types store numbers with a decimal point. They follow the IEEE seven-five-four standard, which encodes a number as three components packed into a fixed number of bits.
+
+The first component is the sign bit — a single bit that determines whether the number is positive or negative. The second component is the exponent — eight bits for a float and eleven bits for a double — which encodes the scale of the number as a power of two. The third component is the mantissa, sometimes called the fraction — twenty-three bits for a float and fifty-two bits for a double — which stores the significant digits of the value.
+
+A float uses four bytes and gives you about seven significant decimal digits of precision. A double uses eight bytes and gives you fifteen to seventeen significant digits. Double is the default in most languages and the right choice for general-purpose decimal arithmetic. Float is used in performance-sensitive contexts like machine learning or graphics, where halving memory usage for large arrays of numbers makes a meaningful difference.
+
+Floating-Point Precision.
+
+Because floats encode values in binary fractions, most decimal numbers cannot be represented exactly — only approximated. This causes the well-known precision problem: adding zero point one and zero point two does not give you exactly zero point three. It gives you zero point three followed by many zeros and then a four, far out in the decimal places.
+
+This is not a Python or Kotlin bug. It is a fundamental consequence of representing decimal numbers in binary — the same way that one third cannot be written exactly in decimal. Most decimal fractions are infinitely repeating in binary.
+
+The practical rule is straightforward: never use float or double for currency or anything requiring exact decimal results. Python provides a Decimal type and Kotlin provides a BigDecimal class for situations where you need exact decimal arithmetic. For everything else — physics calculations, statistics, geometry — the tiny imprecision of a float or double is irrelevant.
+
+For comparisons, never check whether two floating-point values are exactly equal. Instead, check whether their difference is smaller than some very small tolerance — a common threshold is one times ten to the negative ninth power.
+
+Boolean.
+
+A boolean holds one of two values: true or false. Logically it needs only one bit, but in practice most languages store it in a full byte — aligning it to a byte boundary makes it faster to access in memory.
+
+Booleans are what comparisons return and what if-statements consume. Every conditional branch in your code ultimately reduces to a boolean.
+
+Python and Kotlin differ in one important way here. Python has the concept of truthiness — any value can be evaluated in a boolean context, not just actual booleans. Zero, an empty string, an empty list, and None all evaluate to false. Everything else evaluates to true. This is convenient but can lead to subtle bugs if you are not careful. Kotlin is stricter — only actual boolean values work in conditions. You cannot pass a list to an if-statement and expect Kotlin to check whether it is empty. You have to be explicit.
+
+Characters and Text Encoding.
+
+A character stores a single letter, digit, or symbol. Under the hood, characters are just numbers — every character is mapped to a numeric code point by a standard called an encoding.
+
+ASCII is the oldest and simplest encoding — it maps one hundred and twenty-eight characters to numbers zero through one hundred and twenty-seven. In ASCII, the uppercase letter A is sixty-five, lowercase a is ninety-seven, and the digit zero is forty-eight. The gap between any uppercase letter and its lowercase equivalent is always thirty-two — a fact that comes up surprisingly often in string manipulation problems.
+
+Unicode is the universal standard that covers every character in every language — over one hundred and forty thousand code points. UTF-eight is the most common way to encode Unicode text, using one to four bytes per character depending on the code point. Python strings are Unicode by default. Kotlin and the java virtual machine use UTF-sixteen internally, which stores most common characters in two bytes.
+
+One trick that appears constantly in data structures and algorithms problems: subtracting the character zero from a digit character gives you its integer value. If you have the character seven, subtracting the character zero gives you the integer seven. This works because digit characters have consecutive code points starting at forty-eight.
+
+Python versus Kotlin Types.
+
+The two languages take fundamentally different approaches to types, and the difference matters for how you reason about memory and performance.
+
+Python is dynamically typed — types are checked at runtime, not at compile time. A variable can hold an integer now and a string a moment later. Everything is a heap-allocated object, even a simple integer. Python wraps each integer with type information, a reference count, and the value itself — a small integer like forty-two takes about twenty-eight bytes in Python, compared to four bytes for a raw int in Kotlin. Python never overflows because its integers grow automatically. Any variable can hold the value None.
+
+Kotlin is statically typed — types are checked at compile time and a variable's type cannot change. Local integer variables are true stack-allocated primitives — a Kotlin int is exactly four bytes. Overflow wraps silently. Variables are non-nullable by default — to allow None-equivalent values, you must explicitly mark the type as nullable with a question mark.
+
+There is one important subtlety on the java virtual machine. When you put a Kotlin int into a list, the virtual machine boxes it — wrapping it in an Integer object on the heap. A list of integers uses roughly four times more memory than a raw integer array, because each element is now a heap object. For performance-critical code with large arrays of numbers, Kotlin's IntArray avoids boxing by using a raw array of primitives underneath.
+
+Type Conversion.
+
+Converting between types is always explicit in both languages. Neither will silently coerce a value in a way that could lose information.
+
+In Python, the int function converts a float to an integer by truncating — dropping the decimal part without rounding. Nine point nine becomes nine, not ten. The float function converts an integer to a float. The string function turns any value into its text representation. Parsing a hex string into an integer requires specifying base sixteen.
+
+In Kotlin, every numeric type has conversion methods like toLong, toFloat, toDouble, and toString. Narrowing conversions — going from a larger type to a smaller one — may silently lose information. Converting a long with a value of nine billion to an int wraps around and gives you a completely different number. The compiler will not warn you unless you ask for it explicitly.
+
+Key Takeaways.
+
+Primitive types are fixed-size values that map directly to bytes in memory. Their size determines their range, their speed, and their memory footprint.
+
+For integers, use int as the default. Switch to long when values can exceed about two billion. Be aware that in Kotlin, integer overflow wraps silently — Python is immune.
+
+For decimal numbers, use double for general arithmetic. Never use float or double for money or anything requiring exact decimal results — use Decimal in Python or BigDecimal in Kotlin.
+
+Characters are just numbers. The ASCII tricks — letter minus A for alphabetic index, digit minus zero for numeric value — appear constantly in string and array problems.
+
+Python is dynamic and wraps everything in heap objects. Kotlin is static and uses true stack-allocated primitives for local variables, with boxing when primitives go into collections.
+
+And type conversion is always explicit — both languages require you to be clear about what you want, which prevents silent precision loss.
+
+In the next notebook we look at arrays and strings — the first real data structures, built directly on top of the primitive types we covered here.
