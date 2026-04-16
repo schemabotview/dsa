@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 300" width="580" height="300" font-family="monospace" font-size="12">
+  <!-- Background -->
+  <rect width="580" height="300" fill="#0f1117" rx="12"/>
+
+  <!-- Title -->
+  <text x="290" y="28" fill="#e2e8f0" font-size="14" font-weight="bold" text-anchor="middle">Primitive Type Sizes in Memory</text>
+
+  <!-- Column headers -->
+  <text x="110" y="52" fill="#475569" font-size="11" text-anchor="start">Type</text>
+  <text x="210" y="52" fill="#475569" font-size="11" text-anchor="start">Memory layout  (each box = 1 byte)</text>
+  <text x="530" y="52" fill="#475569" font-size="11" text-anchor="middle">Bytes</text>
+
+  <!-- Row height = 34, starting y = 62 -->
+  <!-- 1 byte = 36px wide, starting x = 210 -->
+
+  <!-- boolean — 1 byte -->
+  <text x="110" y="82" fill="#e2e8f0" font-size="12">boolean</text>
+  <rect x="210" y="64" width="36" height="24" fill="#1e3a5f" rx="3" stroke="#3b82f6" stroke-width="1"/>
+  <text x="228" y="80" fill="#7dd3fc" font-size="10" text-anchor="middle">b</text>
+  <text x="530" y="82" fill="#64748b" font-size="11" text-anchor="middle">1</text>
+
+  <!-- byte — 1 byte -->
+  <text x="110" y="116" fill="#e2e8f0" font-size="12">byte</text>
+  <rect x="210" y="98" width="36" height="24" fill="#1e3a5f" rx="3" stroke="#3b82f6" stroke-width="1"/>
+  <text x="228" y="114" fill="#7dd3fc" font-size="10" text-anchor="middle">b</text>
+  <text x="530" y="116" fill="#64748b" font-size="11" text-anchor="middle">1</text>
+
+  <!-- short — 2 bytes -->
+  <text x="110" y="150" fill="#e2e8f0" font-size="12">short</text>
+  <rect x="210" y="132" width="36" height="24" fill="#1e3a5f" rx="3" stroke="#3b82f6" stroke-width="1"/>
+  <rect x="248" y="132" width="36" height="24" fill="#1e3a5f" rx="3" stroke="#3b82f6" stroke-width="1"/>
+  <text x="228" y="148" fill="#7dd3fc" font-size="10" text-anchor="middle">b₁</text>
+  <text x="266" y="148" fill="#7dd3fc" font-size="10" text-anchor="middle">b₂</text>
+  <text x="530" y="150" fill="#64748b" font-size="11" text-anchor="middle">2</text>
+
+  <!-- int / float — 4 bytes -->
+  <text x="110" y="184" fill="#e2e8f0" font-size="12">int / float</text>
+  <rect x="210" y="166" width="36" height="24" fill="#14532d" rx="3" stroke="#22c55e" stroke-width="1"/>
+  <rect x="248" y="166" width="36" height="24" fill="#14532d" rx="3" stroke="#22c55e" stroke-width="1"/>
+  <rect x="286" y="166" width="36" height="24" fill="#14532d" rx="3" stroke="#22c55e" stroke-width="1"/>
+  <rect x="324" y="166" width="36" height="24" fill="#14532d" rx="3" stroke="#22c55e" stroke-width="1"/>
+  <text x="228" y="182" fill="#86efac" font-size="10" text-anchor="middle">b₁</text>
+  <text x="266" y="182" fill="#86efac" font-size="10" text-anchor="middle">b₂</text>
+  <text x="304" y="182" fill="#86efac" font-size="10" text-anchor="middle">b₃</text>
+  <text x="342" y="182" fill="#86efac" font-size="10" text-anchor="middle">b₄</text>
+  <text x="530" y="184" fill="#64748b" font-size="11" text-anchor="middle">4</text>
+
+  <!-- long / double — 8 bytes -->
+  <text x="110" y="218" fill="#e2e8f0" font-size="12">long / double</text>
+  <rect x="210" y="200" width="36" height="24" fill="#3b1f6b" rx="3" stroke="#a855f7" stroke-width="1"/>
+  <rect x="248" y="200" width="36" height="24" fill="#3b1f6b" rx="3" stroke="#a855f7" stroke-width="1"/>
+  <rect x="286" y="200" width="36" height="24" fill="#3b1f6b" rx="3" stroke="#a855f7" stroke-width="1"/>
+  <rect x="324" y="200" width="36" height="24" fill="#3b1f6b" rx="3" stroke="#a855f7" stroke-width="1"/>
+  <rect x="362" y="200" width="36" height="24" fill="#3b1f6b" rx="3" stroke="#a855f7" stroke-width="1"/>
+  <rect x="400" y="200" width="36" height="24" fill="#3b1f6b" rx="3" stroke="#a855f7" stroke-width="1"/>
+  <rect x="438" y="200" width="36" height="24" fill="#3b1f6b" rx="3" stroke="#a855f7" stroke-width="1"/>
+  <rect x="476" y="200" width="36" height="24" fill="#3b1f6b" rx="3" stroke="#a855f7" stroke-width="1"/>
+  <text x="228" y="216" fill="#c084fc" font-size="9" text-anchor="middle">b₁</text>
+  <text x="266" y="216" fill="#c084fc" font-size="9" text-anchor="middle">b₂</text>
+  <text x="304" y="216" fill="#c084fc" font-size="9" text-anchor="middle">b₃</text>
+  <text x="342" y="216" fill="#c084fc" font-size="9" text-anchor="middle">b₄</text>
+  <text x="380" y="216" fill="#c084fc" font-size="9" text-anchor="middle">b₅</text>
+  <text x="418" y="216" fill="#c084fc" font-size="9" text-anchor="middle">b₆</text>
+  <text x="456" y="216" fill="#c084fc" font-size="9" text-anchor="middle">b₇</text>
+  <text x="494" y="216" fill="#c084fc" font-size="9" text-anchor="middle">b₈</text>
+  <text x="530" y="218" fill="#64748b" font-size="11" text-anchor="middle">8</text>
+
+  <!-- char — 2 bytes (JVM/Kotlin UTF-16) -->
+  <text x="110" y="252" fill="#e2e8f0" font-size="12">char</text>
+  <rect x="210" y="234" width="36" height="24" fill="#4a1d3f" rx="3" stroke="#ec4899" stroke-width="1"/>
+  <rect x="248" y="234" width="36" height="24" fill="#4a1d3f" rx="3" stroke="#ec4899" stroke-width="1"/>
+  <text x="228" y="250" fill="#f9a8d4" font-size="10" text-anchor="middle">b₁</text>
+  <text x="266" y="250" fill="#f9a8d4" font-size="10" text-anchor="middle">b₂</text>
+  <text x="530" y="252" fill="#64748b" font-size="11" text-anchor="middle">2</text>
+  <text x="295" y="268" fill="#475569" font-size="10">(Kotlin/JVM — UTF-16)</text>
+
+  <!-- divider line -->
+  <line x1="100" y1="58" x2="555" y2="58" stroke="#1e293b" stroke-width="1"/>
+</svg>
