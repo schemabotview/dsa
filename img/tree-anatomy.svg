@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 360" width="580" height="360" font-family="monospace" font-size="12">
+  <rect width="580" height="360" fill="#0f1117" rx="12"/>
+  <text x="290" y="26" fill="#e2e8f0" font-size="14" font-weight="bold" text-anchor="middle">Binary Tree — Anatomy and Terminology</text>
+
+  <!-- Edges -->
+  <line x1="290" y1="72" x2="175" y2="132" stroke="#475569" stroke-width="1.5"/>
+  <line x1="290" y1="72" x2="405" y2="132" stroke="#475569" stroke-width="1.5"/>
+  <line x1="175" y1="152" x2="112" y2="212" stroke="#475569" stroke-width="1.5"/>
+  <line x1="175" y1="152" x2="238" y2="212" stroke="#475569" stroke-width="1.5"/>
+  <line x1="405" y1="152" x2="342" y2="212" stroke="#475569" stroke-width="1.5"/>
+  <line x1="405" y1="152" x2="468" y2="212" stroke="#475569" stroke-width="1.5"/>
+  <line x1="112" y1="232" x2="80"  y2="282" stroke="#475569" stroke-width="1.5"/>
+  <line x1="112" y1="232" x2="144" y2="282" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Root node -->
+  <circle cx="290" cy="58" r="22" fill="#1e3a5f" stroke="#3b82f6" stroke-width="2"/>
+  <text x="290" y="63" fill="#7dd3fc" font-size="13" font-weight="bold" text-anchor="middle">A</text>
+
+  <!-- Level 1 -->
+  <circle cx="175" cy="142" r="20" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+  <text x="175" y="147" fill="#94a3b8" font-size="13" font-weight="bold" text-anchor="middle">B</text>
+
+  <circle cx="405" cy="142" r="20" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+  <text x="405" y="147" fill="#94a3b8" font-size="13" font-weight="bold" text-anchor="middle">C</text>
+
+  <!-- Level 2 -->
+  <circle cx="112" cy="222" r="20" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+  <text x="112" y="227" fill="#94a3b8" font-size="13" font-weight="bold" text-anchor="middle">D</text>
+
+  <circle cx="238" cy="222" r="20" fill="#14532d" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="238" y="227" fill="#86efac" font-size="13" font-weight="bold" text-anchor="middle">E</text>
+
+  <circle cx="342" cy="222" r="20" fill="#14532d" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="342" y="227" fill="#86efac" font-size="13" font-weight="bold" text-anchor="middle">F</text>
+
+  <circle cx="468" cy="222" r="20" fill="#14532d" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="468" y="227" fill="#86efac" font-size="13" font-weight="bold" text-anchor="middle">G</text>
+
+  <!-- Level 3 (leaves under D) -->
+  <circle cx="80"  cy="292" r="18" fill="#14532d" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="80"  y="297" fill="#86efac" font-size="12" font-weight="bold" text-anchor="middle">H</text>
+
+  <circle cx="144" cy="292" r="18" fill="#14532d" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="144" y="297" fill="#86efac" font-size="12" font-weight="bold" text-anchor="middle">I</text>
+
+  <!-- Annotations -->
+  <!-- Root label -->
+  <line x1="290" y1="36" x2="290" y2="20" stroke="#3b82f6" stroke-width="1" stroke-dasharray="3"/>
+  <text x="291" y="16" fill="#3b82f6" font-size="10" text-anchor="middle">root</text>
+
+  <!-- Leaf label (E) -->
+  <line x1="255" y1="215" x2="280" y2="200" stroke="#22c55e" stroke-width="1" stroke-dasharray="3"/>
+  <text x="300" y="198" fill="#22c55e" font-size="10">leaf nodes</text>
+
+  <!-- Parent / child label -->
+  <line x1="187" y1="130" x2="220" y2="100" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3"/>
+  <text x="222" y="98" fill="#f59e0b" font-size="10">parent of D, E</text>
+
+  <line x1="124" y1="212" x2="160" y2="185" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3"/>
+  <text x="162" y="183" fill="#f59e0b" font-size="10">child of B</text>
+
+  <!-- Height / depth legend on right -->
+  <rect x="480" y="48" width="88" height="112" fill="#0d1117" rx="4" stroke="#1e293b" stroke-width="1"/>
+  <text x="524" y="62" fill="#e2e8f0" font-size="10" font-weight="bold" text-anchor="middle">Depth / Height</text>
+  <line x1="486" y1="68" x2="562" y2="68" stroke="#1e293b" stroke-width="1"/>
+  <text x="524" y="82" fill="#7dd3fc" font-size="10" text-anchor="middle">depth 0</text>
+  <text x="490" y="82" fill="#475569" font-size="9">A</text>
+  <text x="524" y="96" fill="#94a3b8" font-size="10" text-anchor="middle">depth 1</text>
+  <text x="490" y="96" fill="#475569" font-size="9">B,C</text>
+  <text x="524" y="110" fill="#94a3b8" font-size="10" text-anchor="middle">depth 2</text>
+  <text x="490" y="110" fill="#475569" font-size="9">D–G</text>
+  <text x="524" y="124" fill="#94a3b8" font-size="10" text-anchor="middle">depth 3</text>
+  <text x="490" y="124" fill="#475569" font-size="9">H,I</text>
+  <line x1="486" y1="130" x2="562" y2="130" stroke="#1e293b" stroke-width="1"/>
+  <text x="524" y="152" fill="#f59e0b" font-size="10" text-anchor="middle">height = 3</text>
+
+  <!-- Legend bottom -->
+  <rect x="20" y="326" width="540" height="24" fill="#0d1117" rx="4" stroke="#1e293b" stroke-width="1"/>
+  <circle cx="38" cy="338" r="7" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="50" y="342" fill="#7dd3fc" font-size="10">root</text>
+  <circle cx="110" cy="338" r="7" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+  <text x="122" y="342" fill="#94a3b8" font-size="10">internal node</text>
+  <circle cx="230" cy="338" r="7" fill="#14532d" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="242" y="342" fill="#86efac" font-size="10">leaf (no children)</text>
+  <text x="380" y="342" fill="#475569" font-size="10">height = longest path root → leaf</text>
+</svg>

@@ -1,0 +1,81 @@
+Arrays and linked lists store data in a straight line — one element after another. Trees break that constraint. A tree arranges data hierarchically: one root, branching into children, which branch into their own children. This shape maps naturally onto file systems, organisation charts, HTML documents, and expression parsers. Most importantly for algorithms, it enables search, insertion, and deletion in logarithmic time when the tree is balanced.
+
+Binary trees, where every node has at most two children, are the foundation for binary search trees, heaps, tries, and segment trees. Before you can understand any of those, you need to understand how trees are structured, how to traverse them, and why recursion is the natural tool for both.
+
+Tree Terminology.
+
+Every tree is made of nodes connected by edges. The vocabulary you need is straightforward.
+
+The root is the single node at the top. Every tree has exactly one root. A parent is a node with edges going down to other nodes, and those lower nodes are its children. A leaf is a node with no children at all. Any node that is not a leaf is called an internal node.
+
+The depth of a node is the number of edges from the root down to that node. The root itself has depth zero. The height of a node is the number of edges on the longest path going down from that node to a leaf. The height of the whole tree is the height of the root. A subtree is any node together with all of its descendants — every node is the root of its own subtree.
+
+Binary Trees.
+
+A binary tree is a tree where every node has at most two children, called the left child and the right child.
+
+There are a few important shapes worth knowing. A full binary tree is one where every node has either zero or two children — never just one. A complete binary tree has all levels fully filled except possibly the last, and the last level is filled from left to right. This is the shape used by heaps. A perfect binary tree has every internal node with exactly two children and all leaves at the same depth. And a balanced binary tree is one where the height stays proportional to the logarithm of the number of nodes — no subtree is dramatically taller than the other.
+
+A perfect binary tree of height h contains exactly two to the power of h plus one, minus one nodes. This exponential relationship is why balanced trees give you logarithmic operations — the height is logarithmic in the number of nodes.
+
+Node Implementation.
+
+A tree node holds a value and two optional references: one to a left child and one to a right child. In Python you define a class with these three fields. In Kotlin a data class works perfectly, since data classes automatically implement equality and hashing correctly.
+
+Once you have a node class, building a tree is just nesting constructor calls. The root node receives its value plus references to its left and right subtrees, which are themselves nodes constructed the same way.
+
+Tree Traversals.
+
+Traversal means visiting every node exactly once in a defined order. There are four standard traversals.
+
+The three depth-first traversals all follow a path deep into the tree before backtracking, and all three are naturally recursive.
+
+In-order traversal visits the left subtree first, then the current node, then the right subtree. On a binary search tree this visits nodes in ascending sorted order — which makes it the go-to traversal for reading keys in sequence.
+
+Pre-order traversal visits the current node first, then the left subtree, then the right subtree. The root is always the first node visited. This is useful when you need to serialise or copy a tree, because the root must appear before its children in the output.
+
+Post-order traversal visits the left subtree first, then the right subtree, then the current node. Children are always visited before their parent. This is used when deleting a tree — you must free the children before the parent — and for evaluating expression trees from the bottom up.
+
+Level-order traversal, also called breadth-first traversal, visits nodes level by level from top to bottom and left to right. It uses a queue rather than the call stack. You start by enqueuing the root. Then you repeatedly dequeue a node, record its value, and enqueue its children. The queue ensures that all nodes at one level are processed before any node at the next level.
+
+All four traversals take linear time — every node is visited exactly once.
+
+The code pattern for depth-first traversals is the same in all three cases. You handle the empty node as the base case, returning an empty result. Then you recurse into the left subtree, recurse into the right subtree, and combine the results with the current node's value. The only thing that changes is where you place the current node's value — before the recursive calls for pre-order, between them for in-order, or after them for post-order.
+
+Tree Height and Depth.
+
+Computing the height of a tree is a clean example of recursive thinking. The height of an empty tree is defined as minus one. The height of a leaf is zero. The height of any other node is one plus the maximum of the heights of its left and right subtrees. This definition naturally produces a recursive function — call it on the left child, call it on the right child, take the larger result and add one.
+
+Finding the depth of a specific node follows a similar pattern. You carry a counter that starts at zero and increments with each recursive call. When you reach the target node, the counter holds the depth. If you exhaust the tree without finding the node, you return minus one.
+
+Counting Nodes and Leaves.
+
+Both operations follow the same combine-the-subtrees pattern. To count all nodes, the total is one plus the count from the left subtree plus the count from the right subtree. To count only leaves, a node contributes one if it has no children and zero otherwise, with the results from left and right added together.
+
+Checking Balance.
+
+A height-balanced binary tree is one where, for every node, the heights of its left and right subtrees differ by at most one. This is the property that keeps all operations at logarithmic time.
+
+The naive approach computes height separately for every node, leading to n log n time overall. The efficient approach makes a single post-order pass. At each node you compute both the height and whether the subtree is balanced simultaneously. If either child is unbalanced, or if the height difference exceeds one, the whole subtree is unbalanced. This gives linear time — one pass, done.
+
+Iterative Traversal.
+
+Recursive traversals are clean, but they rely on the call stack and can overflow on very deep trees. You can simulate any depth-first traversal iteratively using an explicit stack — you just manage the stack yourself instead of relying on the language runtime.
+
+For pre-order, you push the root onto your stack. Then you loop: pop a node, record it, push its right child first and then its left child. Because stacks are last-in, first-out, the left child will be processed next — which is exactly what pre-order requires.
+
+For in-order, you walk as far left as possible, pushing each node as you go. When you can go no further left, you pop, record the node, and move to its right child, then repeat. This reproduces the left-then-root-then-right order without any recursive calls.
+
+Key Takeaways.
+
+A binary tree is a hierarchical structure where every node has at most two children. The height of the tree determines the cost of operations — logarithmic for a balanced tree, linear for a degenerate one.
+
+The four standard traversals are in-order for sorted access, pre-order for serialisation, post-order for bottom-up evaluation or deletion, and level-order for processing nodes level by level.
+
+All depth-first traversals share the same recursive skeleton — the only difference is when you visit the current node relative to its children.
+
+Level-order uses a queue, not a stack. Enqueue children left-to-right and process one full level before moving to the next.
+
+A balanced tree check runs in linear time by combining height computation and balance verification in a single post-order pass.
+
+In the next notebook we add ordering to the binary tree. A binary search tree places all smaller values in the left subtree and all larger values in the right, and that one constraint is enough to make search, insertion, and deletion all run in logarithmic time on a balanced tree.
