@@ -1,0 +1,81 @@
+Arrays give you constant-time access by position. Hash maps give you constant-time access by key — and the key can be anything: a string, a number, a tuple. This is the most powerful lookup structure in everyday programming. Mastering when and how to use hash maps is one of the fastest ways to improve your problem-solving speed — a huge number of interview problems that look like quadratic time reduce to linear time the moment you reach for a hash map.
+
+How Hashing Works.
+
+Under the hood, a hash map is an array of buckets. To store a key-value pair, the map passes the key through a hash function — a deterministic function that converts the key into an integer. It then takes that integer modulo the array size to get a bucket index, and stores the key-value pair in that bucket.
+
+To retrieve a value, it performs exactly the same steps: hash the key, compute the index, go directly to that bucket. No searching, no scanning — just arithmetic. That is why hash map access is constant time on average.
+
+The formula is straightforward: the bucket index equals the hash of the key, modulo the table size. The hash function is deterministic — the same key always produces the same integer — so the same arithmetic always leads back to the same bucket.
+
+Hash Collisions.
+
+Two different keys can sometimes produce the same bucket index. This is called a collision. The most common way to handle it is called separate chaining: each bucket holds a small list of all the key-value pairs that mapped to it. On lookup, you hash to the bucket and then scan that list for the exact key you want.
+
+Collisions are why hash map operations are constant time on average but linear time in the absolute worst case. If every single key happens to hash to the same bucket, you end up scanning a list of all entries — which is linear. In practice, a well-designed hash function distributes keys evenly, keeping bucket lists very short — typically length one.
+
+The load factor is the ratio of stored entries to the number of buckets. When it grows too high, the table resizes — it allocates a larger array and rehashes every key. Python's dictionary resizes when the load factor exceeds about two-thirds, which keeps average bucket length close to one and preserves constant-time performance.
+
+Hash Map Operations.
+
+Creating, reading, updating, and deleting entries are all constant time on average.
+
+In Python, the dictionary is the built-in hash map. Square bracket notation reads or writes a value by key. The get method reads safely — if the key is absent it returns a default value instead of raising an error, which is often what you want. The in operator checks membership in constant time. Iterating over key-value pairs with the items method touches every entry and takes linear time overall.
+
+In Kotlin, mutableMapOf creates a mutable hash map. Bracket notation reads and writes. The getOrDefault method works like Python's get. The remove method deletes an entry. Iterating with a destructuring for loop gives you key and value together.
+
+Python provides two especially useful specialisations of the dictionary. The defaultdict automatically creates a default value for any missing key — instead of raising a KeyError, it inserts and returns whatever factory you specify. This is particularly useful for building graphs and grouping problems, where you want to append to a list for each key without checking whether the key exists yet.
+
+The Counter is a dictionary subclass designed specifically for counting. Pass it any iterable and it builds a frequency map. Missing keys return zero instead of raising an error. The most-common method returns the top entries by count, sorted descending.
+
+Hash Set.
+
+A hash set is a hash map with no values — only keys. It answers one question in constant time: is this element in the set? It also supports the full vocabulary of set mathematics: union, intersection, difference, and subset checks.
+
+Use a set whenever you need to eliminate duplicates, check membership quickly, or compute relationships between two collections. In Python the set literal uses curly braces. In Kotlin, mutableSetOf creates a mutable set.
+
+The four set operations are intuitive. Union gives you every element that appears in either set. Intersection gives you only elements that appear in both. Difference gives you elements in the first set but not the second. Symmetric difference gives you elements that appear in exactly one of the two sets but not both.
+
+The Four Canonical Patterns.
+
+Pattern one is frequency counting. Build a map from each element to the number of times it appears — one pass, linear time. From that frequency map you can check anagrams, find the most common elements, detect imbalances, and much more. Python's Counter makes this one line.
+
+Pattern two is grouping. Build a map from a canonical key to a list of all elements that share that key. The group anagrams problem is the classic example: sort each word alphabetically to get its canonical form, then group all words with the same sorted form. Words that are anagrams of each other will have identical sorted versions and end up in the same group.
+
+Pattern three is the complement lookup — also called the two-pass hash map or one-pass lookup. The two-sum problem illustrates it perfectly. You want to find two numbers that add to a target. The naive approach checks every pair — quadratic time. With a hash map you make one pass: for each element, check whether its complement — the target minus the current value — is already in the map. If it is, you found your pair. If not, store the current element and move on. One pass, constant-time lookup per element, linear time total.
+
+Pattern four combines a hash map with a sliding window. The longest substring without repeating characters is the textbook example. You keep a map from character to its most recently seen index. As the window's right edge advances, if the current character was seen recently enough to still be inside the window, you move the left edge past its previous position. The map gives you that previous position in constant time, making the whole algorithm linear.
+
+What Can Be a Key.
+
+A key must be hashable — its hash value must be stable and must agree with equality. If two objects are equal, they must have the same hash. If an object is mutable, its hash could change after being stored, which would make it impossible to find again — so mutable types are not hashable.
+
+In Python, integers, floats, strings, and tuples of hashable elements are all hashable and can be keys. Lists, dictionaries, and plain sets cannot — they are mutable. If you need an immutable set as a key, use a frozenset.
+
+In Kotlin, any class that correctly implements hashCode and equals can be a map key. Data classes do this automatically and correctly, which makes them natural map keys.
+
+HashMap versus TreeMap versus Array.
+
+Choose based on what you need beyond fast lookup. A plain hash map gives constant-time access by key but makes no guarantees about the order of keys during iteration. Python's dictionary does preserve insertion order as of version three-point-seven, but it is not sorted order.
+
+A tree map — Python's SortedDict from the sortedcontainers library, or Kotlin's TreeMap — stores keys in sorted order and gives logarithmic time for all operations. Use it when you need both fast lookup and ordered traversal, or when you need range queries — finding all keys between two values, or the next key larger than some threshold.
+
+A plain array beats both when your keys are consecutive integers starting near zero — just use the integer as an index directly. For counting lowercase letters, a fixed array of twenty-six integers is faster and simpler than any map.
+
+Key Takeaways.
+
+A hash map converts a key to a bucket index via a hash function — the index equals the hash of the key modulo the table size. That arithmetic is why lookup is constant time.
+
+Collisions happen when two keys land in the same bucket. Chaining resolves them with a short list per bucket. With a good hash function and a healthy load factor, chains stay length one.
+
+All core operations — get, put, delete, contains — are constant time on average. Treat them as constant time in practice.
+
+A hash set is a hash map without values — constant-time membership, deduplication, and set algebra.
+
+Keys must be hashable — immutable types only. Lists and dictionaries cannot be keys; tuples and frozensets can.
+
+The four canonical patterns are: frequency counting with Counter, grouping with defaultdict of lists, complement lookup for pair-finding, and sliding window with a last-seen index map.
+
+Use a tree map when you need sorted key order. Use a plain hash map when you just need fast lookup.
+
+In the next notebook we cover recursion and the call stack — the foundation for understanding trees, graphs, and dynamic programming.
