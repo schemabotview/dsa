@@ -1,0 +1,77 @@
+Stacks and queues are the two simplest abstract data structures — and among the most useful. They are not new storage mechanisms; they are arrays or linked lists with restricted access rules. That restriction is the whole point: by controlling where you can insert and remove, you get a structure whose behaviour is predictable and easy to reason about. Stacks power function calls, undo systems, and depth-first search. Queues power task scheduling, breadth-first search, and streaming pipelines.
+
+Stack — Last In, First Out.
+
+A stack allows access at only one end — the top. The rule is simple: the last element pushed onto the stack is the first one popped off. This is called last in, first out, or LIFO for short.
+
+Think of a stack of plates. You place a new plate on top. You take a plate from the top. You never pull one from the middle. The structure enforces an order: the most recently added item is always the next one to leave.
+
+All four core operations are constant time. Push adds an element to the top. Pop removes and returns the top element. Peek returns the top element without removing it. And is-empty checks whether the stack has any elements. Each of these is a single step regardless of how many elements are in the stack.
+
+In Python, a plain list makes a perfectly good stack. The append method pushes to the end — the logical top — and the pop method removes from the end. Both are constant time. In Kotlin, the ArrayDeque class serves the same purpose, with addLast for push and removeLast for pop.
+
+Balanced Parentheses.
+
+One of the most classic stack problems is checking whether a string of brackets is balanced — meaning every opening bracket has a corresponding closing bracket of the same type, and they are properly nested.
+
+The algorithm is elegant. Walk the string character by character. When you see an opening bracket — a round, square, or curly one — push it onto the stack. When you see a closing bracket, check whether the top of the stack holds the matching opener. If it does, pop the opener and continue. If it does not, the string is unbalanced. At the end, the stack must be empty — any leftover openers mean unclosed brackets.
+
+The key insight is that brackets must match in reverse order of their opening. The most recently opened bracket must be the first one closed. That is exactly the property a stack provides.
+
+Monotonic Stack.
+
+A monotonic stack is a stack that maintains its elements in sorted order — either always increasing or always decreasing from bottom to top. The way you enforce this order is by popping elements that would violate it before pushing the new one.
+
+This pattern solves a whole family of problems efficiently. The next greater element problem asks: for each element in an array, what is the first element to its right that is larger? With a brute-force nested loop this takes quadratic time. With a monotonic stack it takes linear time.
+
+The idea is to walk the array left to right, maintaining a stack of indices whose answers have not yet been found. When you encounter a new value, it is the next greater element for every smaller value still waiting in the stack. Pop those, record their answers, then push the current index. Because each element is pushed and popped at most once, the total work is linear.
+
+Queue — First In, First Out.
+
+A queue allows insertions at one end — the rear — and removals from the other end — the front. The rule is the opposite of a stack: the first element inserted is the first one removed. This is called first in, first out, or FIFO.
+
+Think of a checkout line at a shop. New customers join the back of the queue. The cashier serves the person at the front. The person who has been waiting longest is served next. Nobody cuts in.
+
+All four core operations are constant time: enqueue adds an element at the rear, dequeue removes and returns the element at the front, peek returns the front element without removing it, and is-empty checks whether the queue has any elements.
+
+There is an important pitfall in Python. Do not use a plain list as a queue. The list's pop-zero method removes the first element, but it does so by shifting every remaining element one position to the left — linear time. With a large queue this becomes a serious bottleneck. The correct tool is the deque from Python's collections module, which gives constant-time removal from the front through its popleft method. In Kotlin, ArrayDeque with addLast and removeFirst gives the same constant-time behaviour.
+
+BFS and the Queue.
+
+Breadth-first search is the most natural use of a queue. The algorithm explores a graph level by level — all nodes one step away from the start are visited before any nodes two steps away, and so on. A queue enforces this ordering automatically: nodes are enqueued when they are discovered and dequeued when they are processed, so the first discovered nodes are always processed first.
+
+The algorithm starts by enqueuing the starting node and marking it as visited. Then, while the queue is not empty, it dequeues the front node, processes it, and enqueues all of its unvisited neighbours. Because nodes are processed in the order they were discovered, the result is guaranteed to be level-by-level — the defining property of breadth-first search.
+
+Deque — Double-Ended Queue.
+
+A deque — pronounced like the word deck — generalises both the stack and the queue by allowing constant-time push and pop from both ends simultaneously. Python's deque and Kotlin's ArrayDeque are both deques.
+
+A powerful pattern built on the deque is the sliding window maximum. Given an array and a window size, you want the maximum value in each window as it slides from left to right. The naive approach computes the maximum in each window from scratch — linear work per window, quadratic total. With a monotonic deque you can do it in linear time overall.
+
+The deque stores indices and is maintained in decreasing order of their values. When the window slides, you remove the index at the front if it has fallen outside the window. When you add a new element, you pop smaller values from the rear because they can never be the maximum of any future window — the new element is both larger and more recent. The front of the deque always holds the index of the current window's maximum. Each element is added and removed at most once, giving linear time total.
+
+Stack versus Queue.
+
+The fundamental difference is the order in which elements leave. A stack reverses the insertion order — last in, first out. A queue preserves the insertion order — first in, first out.
+
+Stacks naturally model anything that needs to be unwound in reverse: function calls return in the reverse order they were made, undo operations reverse the most recent action first, depth-first search backtracks in the reverse order of how paths were explored.
+
+Queues naturally model anything that should be processed in arrival order: tasks are handled in the order they were submitted, levels of a tree or graph are explored in the order they were discovered, messages in a pipeline are processed in the sequence they arrived.
+
+Key Takeaways.
+
+A stack is last in, first out. Push and pop happen at the same end. All core operations are constant time. Use a list in Python, ArrayDeque in Kotlin.
+
+A queue is first in, first out. Enqueue at the rear, dequeue from the front. All core operations are constant time. Use deque in Python — never list pop-zero, which is linear. Use ArrayDeque in Kotlin.
+
+A deque is the generalisation — constant time at both ends.
+
+The balanced parentheses problem is the canonical stack application — push openers, pop and match closers.
+
+The monotonic stack solves next greater element and similar problems in linear time by maintaining sorted order and popping violating elements.
+
+Breadth-first search is the canonical queue application — nodes are enqueued when discovered and dequeued when processed, giving level-by-level traversal.
+
+The monotonic deque solves sliding window maximum in linear time by maintaining decreasing order and evicting out-of-window indices.
+
+In the next notebook we cover hash maps and hash sets — structures that give constant-time lookup not by position, but by key.
