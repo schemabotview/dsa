@@ -1,0 +1,69 @@
+Before you can reason about data structures, you need to understand where data actually lives. Every variable, every object, every collection you create ends up as bytes sitting in memory. How those bytes are arranged — and how your program finds them — is what determines whether an operation takes one step or a million. This notebook builds that mental model from the ground up.
+
+What is RAM.
+
+RAM stands for random access memory. It is your computer's working memory — the space where everything your program uses while it is running lives. Think of it as a very long row of small numbered slots, where each slot holds exactly one byte — eight bits of information.
+
+When your program starts, the operating system gives it a chunk of ram to work with. From that point on, every variable, every object, every data structure you create is just bytes occupying some of those slots.
+
+Two properties make ram powerful. First, random access — you can jump to any slot instantly, regardless of where you currently are. The first slot and the ten millionth slot take the same amount of time to reach. Second, every slot has a unique address — a number that identifies exactly where it lives. Your program finds data by its address.
+
+Bits, Bytes, and Addresses.
+
+The smallest unit of storage is a bit — a single zero or one. Eight bits form a byte, and a byte is the smallest unit that ram can address individually.
+
+Each byte has a unique memory address. Addresses are typically written in hexadecimal — a numbering system that uses sixteen symbols instead of ten — but you can think of them as plain numbers. Address zero, address one, address two, and so on all the way up.
+
+When you store an integer, it does not fit in one byte. A standard integer takes four bytes, so it occupies four consecutive addresses. A single character takes one byte. A sixty-four bit floating point number takes eight bytes. The key point is that every piece of data has a starting address and a known size, and the two together tell you exactly which bytes belong to it.
+
+To put it another way — imagine a row of numbered boxes at a post office. Each box holds a fixed amount. When you rent four consecutive boxes starting at number one hundred, anyone who knows the starting number and the count can find your parcel immediately. That is exactly how your program finds a value in memory.
+
+The Stack and the Heap.
+
+Your program's memory is divided into two main regions, and they behave very differently from each other.
+
+The first is called the stack. When your program calls a function, a block of memory called a stack frame is pushed onto the stack. That frame holds the function's local variables and its parameters. When the function returns, the frame is popped off and that memory is instantly reclaimed — no cleanup required. The stack is fast, automatically managed, and has a fixed size — typically a few megabytes.
+
+The second region is the heap. The heap is where objects and collections live — anything that needs to grow dynamically or outlive the function that created it. The heap is large and flexible, but slower, because the runtime has to find a free region of the right size whenever you allocate something new. Objects on the heap are reclaimed by the garbage collector once nothing references them anymore.
+
+Think of the stack like a tray of dishes at a cafeteria — you always add and remove from the top, and the structure is perfectly orderly. The heap is more like a parking lot — cars come and go in any slot, in any order, and finding a free space takes a little more work.
+
+Value Types versus Reference Types.
+
+This is one of the most important distinctions in all of programming, and it directly shapes how data structures behave.
+
+A value type stores its data directly inside the variable. When you copy a value type variable into another variable, you get a completely independent copy of the data. Changing one does not affect the other. Primitive types — integers, booleans, characters — behave this way. They live on the stack, right inside the variable's slot.
+
+A reference type works differently. The variable does not hold the data itself. Instead, it holds an address — a pointer to where the real object lives on the heap. When you copy a reference type variable into another variable, both variables now hold the same address, meaning they both point to the same object. If you change the object through one variable, the other variable sees the change too, because they are looking at the same place in memory.
+
+Here is a concrete way to think about it. Imagine you have a document on your desk — that is a value type. If you photocopy it and give the copy to a colleague, you each have your own version. Now imagine a shared document on a company server, and you give a colleague the link — that is a reference type. You both have the link, but there is only one document. If either of you edits it, you both see the change.
+
+In Python, every variable is a reference. Even integers are objects on the heap that variables point to. Python caches small integers as an optimisation, so two variables holding the value forty-two might actually point to the same object in memory. Mutable objects like lists make this especially important — assigning a list to a second variable does not copy the list. Both variables point to the same list, and a change through either one affects both.
+
+In Kotlin and on the java virtual machine, primitive types like integers and booleans are genuine value types — they are stored directly on the stack when used as local variables. But the moment you put an integer into a collection, the java virtual machine boxes it — wrapping it in an object and moving it to the heap. This is why typed collections in Kotlin and Java are slower for primitives than raw arrays.
+
+Why This Matters for Data Structures.
+
+Everything you will learn in this course connects back to memory layout. Once you understand how data sits in memory, the performance characteristics of every data structure become obvious rather than something you memorise.
+
+Arrays store their elements in consecutive memory slots. Because each element is the same size, your program can calculate the address of any element instantly — it is just the starting address plus the index multiplied by the element size. That is why reading any element from an array takes constant time, no matter how large the array is.
+
+Linked lists take a different approach. Each node is a separate object on the heap, and each node holds a reference to the next one. The nodes can be scattered anywhere in memory. To reach the fifth node, you have to start at the first, follow its reference to the second, follow that to the third, and so on. That is why reading from a linked list takes linear time — you have to walk the chain.
+
+Hash maps use an array under the hood. When you insert a key-value pair, the hash map computes a number from the key and uses that number as an index into the underlying array. Because computing the index is just arithmetic, finding a value takes constant time on average.
+
+Trees and graphs are networks of nodes connected by references. Traversal cost depends on how many references you have to follow to reach your destination.
+
+The pattern that ties all of this together is straightforward: contiguous memory gives you fast random access but makes insertions slow because elements need to shift. Pointer-linked memory gives you flexible structure and fast insertions, but traversal must follow each reference one at a time.
+
+Key Takeaways.
+
+Ram is a long row of numbered byte-slots. Every value your program uses occupies some of those slots, identified by its starting address.
+
+The stack holds short-lived local variables and is managed automatically — frames are pushed when a function is called and popped when it returns. The heap holds objects and collections that live beyond a single function call and are reclaimed by the garbage collector.
+
+Value types store data directly in the variable. Reference types store an address pointing to the real data on the heap. Copying a reference copies the address, not the object — so both variables end up looking at the same thing.
+
+And finally — data structure performance is not magic. It is a direct consequence of memory layout. Arrays are fast to index because their elements are contiguous. Linked structures are flexible because they use references. Everything else in this course builds on those two ideas.
+
+In the next notebook, we look at how to measure and reason about performance systematically — that is complexity analysis, and it gives us a precise language for describing how fast or slow any operation is as the input grows.

@@ -110,4 +110,18 @@ Steps:
 - Each notebook should be self-contained and readable top-to-bottom
 - Include time and space complexity analysis for every algorithm
 - Use SVG diagrams wherever a visual aids understanding more than prose — good candidates: memory layouts, pointer/node chains, tree structures, graph traversals, sliding window movement, DP tables. Save SVGs to `img/` and reference them in markdown cells via GitHub raw URL: `![Alt text](https://raw.githubusercontent.com/schemabotview/dsa/main/img/filename.svg)`. Always set explicit `width` and `height` on the `<svg>` element matching the `viewBox` dimensions — without them the image stretches to fill the container
-- `.tts` files should be plain prose (no markdown, no code) — they are read aloud by TTS
+- `.tts` files are read aloud by a TTS engine — follow the guidelines below
+
+## TTS Guidelines
+
+- **Plain prose only** — no markdown, no headings with hash symbols, no bullet points, no backticks, no asterisks. Section titles are written as a plain sentence ending with a full stop.
+- **No raw code** — never paste code blocks into a TTS file. Instead, describe what the code does conceptually or in pseudo-code form. For example, instead of `if left < right: mid = (left + right) // 2`, say: "we keep two pointers — one at the start, one at the end — and calculate the midpoint on each iteration."
+- **Spell out symbols and shorthand** — TTS engines read characters literally and stumble on symbols. Apply these rules:
+  - Operators: `//` → "floor division", `%` → "modulo", `->` → "returns", `=>` → "maps to", `===` → "strict equality"
+  - Acronyms: RAM → "ram", CPU → "see-pee-you", API → "ay-pee-eye", DSA → "data structures and algorithms", JVM → "java virtual machine", GC → "garbage collector"
+  - Hex values: `0x0000` → "memory address zero", `0xFF` → "hex F-F"
+  - Complexity: O(1) → "constant time", O(n) → "linear time", O(n log n) → "n log n time"
+  - Variable names: `list_a` → "list A", `mid` → "mid", `left_ptr` → "left pointer"
+- **Natural spoken flow** — write the way a teacher explains at a whiteboard. Use transitional phrases like "notice that", "the key insight here is", "to put it another way". Avoid abrupt topic jumps.
+- **Skip visual-only content** — diagrams, tables, and code outputs are not narrated. Instead, describe what the listener should picture: "imagine a row of numbered boxes, each holding one byte."
+- **Pace with paragraph breaks** — each paragraph is one idea. A blank line between paragraphs gives the TTS engine a natural pause. Do not write walls of text.
