@@ -1,0 +1,61 @@
+Writing code that works is the first goal. Writing code that works efficiently is the second — and often the more important one. Complexity analysis gives you a precise, language-agnostic way to measure how an algorithm's resource usage grows as its input grows. It is the shared vocabulary that lets engineers compare approaches, predict behaviour at scale, and make informed trade-offs.
+
+Why Measure Performance.
+
+Suppose you have a list of one million user records and you need to find one by name. You could scan from the first record to the last — that works. But on average you will check five hundred thousand records before finding the right one. Double the dataset and you double the work. At a billion records, this approach becomes unusable.
+
+Alternatively, if the list is sorted, you could use a strategy that eliminates half the remaining records on every step. At a billion records, that strategy takes about thirty steps — not five hundred million.
+
+Both approaches produce the correct answer. The difference is how they scale. Complexity analysis is the tool that makes this difference visible and quantifiable, before you write a single line of production code.
+
+Big O Notation.
+
+Big O notation describes how an algorithm's runtime or memory usage grows relative to the size of its input. The input size is conventionally called n.
+
+Three things to internalise about Big O. First, it describes growth, not absolute speed. An algorithm that scales well might still be slower than a simpler one for very small inputs — Big O tells you what happens as n gets large. Second, it drops constants and lower-order terms. Three n plus one hundred and n are both linear time. At large scale, the three and the hundred become irrelevant compared to the n. Third, it usually describes the worst case — the upper bound, the most demanding scenario your algorithm might encounter.
+
+The Common Complexity Classes.
+
+Constant time means the operation takes the same amount of time regardless of input size. Accessing an element in an array by index is a good example. Your program calculates the memory address directly from the index — no searching, no looping. Whether the array has ten elements or ten million, the lookup takes the same number of steps.
+
+Logarithmic time means each step eliminates a fixed fraction of the remaining work — typically half. The classic example is binary search. You look at the middle element of a sorted list. If it is too small, you discard the entire left half. If it is too large, you discard the entire right half. At each step the problem shrinks by half. A dataset of one billion elements needs at most thirty steps. A useful intuition: if doubling n only adds one more step, the algorithm is logarithmic.
+
+Linear time means the work grows in direct proportion to the input size. Scanning every element once is linear — double the input, double the work. Finding the maximum value in an unsorted list requires one full pass. Linear time is very often acceptable, and sometimes unavoidable.
+
+Linearithmic time sits just above linear. It is the complexity of the most efficient general-purpose sorting algorithms — merge sort, heap sort, and Python's built-in sort. The way to think about it is: the algorithm divides the problem in half at each level — that gives you a logarithmic number of levels — and then does linear work at each level. At one million elements, linearithmic time means roughly twenty million operations. Quadratic time, by contrast, means one trillion.
+
+Quadratic time is usually the result of a nested loop where each loop runs n times. For every element, you process every other element. Manageable at small sizes — hundreds of elements — but painful at thousands and unusable at millions.
+
+Exponential time means adding one element to the input doubles the work. Generating all possible subsets of a set is exponential — each element is either included or excluded, which gives you two to the power of n combinations. Exponential algorithms are only practical for very small inputs, roughly fewer than twenty-five elements.
+
+Time versus Space Complexity.
+
+Big O applies to two independent resources. Time complexity asks how many operations the algorithm performs as n grows. Space complexity asks how much extra memory the algorithm uses as n grows. The memory used by the input itself is not counted — only the additional memory the algorithm allocates, which is called auxiliary space.
+
+The two are often in tension. A very common trade-off is this: use extra memory — typically a hash map — to avoid redundant computation, and reduce time from quadratic to linear. In the two-sum problem, the brute-force approach checks every pair of numbers with a nested loop — quadratic time, but no extra space. The hash map approach does a single pass and stores each number it has seen — linear time, but linear extra space. Whether that trade-off is worth it depends on the constraints of your system.
+
+Best, Worst, and Average Case.
+
+The same algorithm can behave very differently depending on the input it receives. The best case is the most favourable input possible — the one that lets the algorithm finish as quickly as it ever can. The worst case is the most demanding input — the one that forces the algorithm to do the maximum amount of work. The average case is the expected performance across typical inputs.
+
+In practice, worst case is what matters most. It is the guarantee you can give. When someone asks what the complexity of your algorithm is, they almost always mean worst case.
+
+Linear search is a clear illustration. The best case is constant time — the target happens to be the very first element. The worst case is linear time — the target is last, or not in the list at all. The average case is also linear time, because on average you check half the elements, and half of n is still proportional to n.
+
+How to Analyse Code.
+
+Four practical rules cover the vast majority of situations. A single loop over n elements is linear time. Nested loops over n elements are quadratic — one loop inside another each running n times gives n squared operations, and three loops deep gives n cubed. Halving the problem at each step gives logarithmic time. And when you have sequential blocks of code — one after the other, not nested — you add their complexities and keep the dominant term. Linear plus quadratic is quadratic. The smaller term disappears.
+
+A practical example: imagine a function that first does a single pass to find the maximum value — that is linear — and then does a nested loop to find all pairs — that is quadratic. The total is linear plus quadratic, which simplifies to quadratic. The linear part becomes invisible at scale.
+
+Key Takeaways.
+
+Big O describes how an algorithm scales with input size — it measures growth, not raw speed. Constants and lower-order terms are dropped, because they become irrelevant at large n. The hierarchy from most to least efficient is: constant, logarithmic, linear, linearithmic, quadratic, exponential.
+
+Time and space complexity are independent dimensions. A faster algorithm often costs more memory, and you choose the trade-off based on your constraints.
+
+Worst case is the default when analysing an algorithm, unless you have a specific reason to reason about average case.
+
+And the four rules for reading code: a loop is linear, nested loops multiply, halving is logarithmic, and sequential blocks keep the dominant term.
+
+From here on, every data structure and algorithm in this course comes with a complexity analysis. The vocabulary you built here is the lens you will use to evaluate every trade-off — from the simplest array lookup to the most sophisticated graph algorithm.
