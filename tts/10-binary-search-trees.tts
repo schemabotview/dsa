@@ -1,0 +1,77 @@
+A binary tree becomes a binary search tree the moment you add one rule: for every node, all values in its left subtree are smaller, and all values in its right subtree are larger. That single constraint is enough to make search, insertion, and deletion all run in time proportional to the height of the tree. On a balanced tree, the height is logarithmic in the number of nodes — so all three operations are logarithmic. No hash function needed, and the keys stay in sorted order at all times.
+
+Binary search trees are the foundation for sorted maps, sorted sets, and the self-balancing trees that back the TreeMap in Kotlin and Java and the SortedDict in Python.
+
+The BST Property.
+
+The ordering rule is recursive — it does not just apply to direct children, it applies to every descendant. Every value anywhere in the left subtree must be less than the current node's value. Every value anywhere in the right subtree must be greater.
+
+A direct consequence of this rule is that in-order traversal of a binary search tree always visits nodes in sorted ascending order. You recurse left as deep as possible, visit the current node, then recurse right. Because every left value is smaller and every right value is larger, the result is naturally sorted.
+
+Searching.
+
+Searching in a binary search tree is guided at every step. You start at the root. If the target equals the current node's value, you are done. If the target is smaller, you go left — because every value to the right is already larger than the current node, and therefore larger than the target. If the target is larger, you go right. At each level you discard an entire half of the remaining tree.
+
+In the best case — a balanced tree — this halving means you reach your answer in logarithmic time. In the worst case — a degenerate tree where every node only has a right child, like a linked list — you may scan every node.
+
+The iterative version of search uses a loop rather than recursion, advancing a pointer left or right until it finds the target or falls off the tree.
+
+Insertion.
+
+Insertion uses the same left-right navigation as search. You follow the path you would take to find the value, and when you fall off the edge of the tree, that empty slot is exactly where the new node belongs. A new value always arrives as a leaf.
+
+The key insight is that insertion never restructures the existing tree — it just attaches a new leaf at the correct position. This makes insertion fast but also means the shape of the tree depends entirely on the order values are inserted.
+
+Minimum, Maximum, and Successor.
+
+The minimum value in a binary search tree is always the leftmost node. You walk left as far as possible — when there is no more left child, you have reached the smallest value. Maximum is the mirror: walk right until there is no right child.
+
+The in-order successor of a node is the smallest value that is larger than it — the node you would visit immediately after it in an in-order traversal. If the node has a right subtree, the successor is the minimum of that right subtree. This concept is used directly in the deletion algorithm.
+
+Deletion.
+
+Deletion has three cases depending on how many children the target node has.
+
+The first case is the simplest: the node is a leaf. It has no children, so you simply remove it. The parent's pointer to it is set to null.
+
+The second case is a node with exactly one child. You bypass the node and connect its parent directly to its one child. The child is promoted one level up, and the deleted node is gone.
+
+The third case is the hardest: the node has two children. You cannot simply remove it because doing so would disconnect part of the tree. The solution is to find the node's in-order successor — the minimum value in its right subtree — copy that successor's value into the current node, and then delete the successor from the right subtree. The successor is guaranteed to have at most one child, so that deletion reduces to case one or case two.
+
+The result is a valid binary search tree with the correct ordering property maintained throughout.
+
+Validating a BST.
+
+A common mistake when validating a binary search tree is to check only that each node's left child is smaller and right child is larger. This is not sufficient. Consider a node deep in the left subtree that happens to be larger than the root — the local check passes, but the global ordering is violated.
+
+The correct approach threads a valid range down through the recursion. Every node must have a value strictly between a lower bound and an upper bound. The root starts with bounds of negative infinity and positive infinity. When you go left, the upper bound tightens to the current node's value. When you go right, the lower bound tightens. Any node that falls outside its range means the tree is invalid.
+
+Building a Balanced BST from a Sorted Array.
+
+If you are given a sorted array and want to build a balanced binary search tree from it, the strategy is to always pick the midpoint of the current subarray as the root. The elements to the left of the midpoint become the left subtree, and the elements to the right become the right subtree. Applying this recursively produces a perfectly balanced tree.
+
+For an array of seven elements, the resulting tree has height two — the minimum possible. This technique is linear time because every element is visited exactly once.
+
+Performance.
+
+All binary search tree operations take time proportional to the height. On a perfectly balanced tree the height is the logarithm of the number of nodes, so all operations are logarithmic. On average, random insertions also produce a tree of logarithmic height.
+
+The worst case is sorted insertion. If you insert the values one through ten in order, each new value is larger than everything before it and lands as the rightmost leaf. The result is a chain going straight right — a degenerate tree with height equal to the number of nodes. Search, insert, and delete all degrade to linear time.
+
+Self-balancing binary search trees — such as AVL trees and Red-Black trees — automatically rebalance after every insertion and deletion, keeping the height logarithmic in all cases. These are the data structures that power the TreeMap in Kotlin and Java, and the SortedDict in Python's sortedcontainers library. When you need guaranteed logarithmic performance on a sorted key structure, reach for one of these rather than a plain binary search tree.
+
+Key Takeaways.
+
+The BST property — left subtree smaller, right subtree larger — holds recursively at every node, not just at direct children.
+
+In-order traversal always produces sorted output. This is a direct consequence of the ordering rule.
+
+Search, insert, and delete are all proportional to the tree height. Logarithmic on a balanced tree, linear on a degenerate one.
+
+The minimum is the leftmost node, the maximum is the rightmost. The in-order successor is the minimum of the right subtree.
+
+Deletion has three cases: remove a leaf directly, promote a single child, or replace a two-child node with its in-order successor.
+
+Validate a BST by threading a valid range through the recursion — not by checking only immediate children.
+
+In the next notebook we look at heaps and priority queues — a different tree shape that guarantees constant-time access to the minimum or maximum element, and logarithmic insertion and removal.

@@ -1,0 +1,71 @@
+A heap is a complete binary tree with one additional rule: every node must be smaller than or equal to its children. That rule means the minimum element is always sitting at the root, accessible in constant time. Insertion and removal both run in logarithmic time. This combination — constant-time minimum, logarithmic updates — is what makes heaps the engine behind priority queues.
+
+A priority queue is an abstract data structure that always serves the highest-priority item first, regardless of the order things were inserted. Heaps are the standard implementation. They power Dijkstra's shortest-path algorithm, Prim's minimum spanning tree algorithm, A-star search, and any problem that repeatedly asks: what is the current minimum or maximum?
+
+The Heap Property and Array Storage.
+
+A min-heap satisfies one rule at every node: the parent's value is less than or equal to both of its children's values. This holds recursively throughout the entire tree — not just at direct parent-child pairs. A max-heap is the mirror image: every parent is greater than or equal to its children.
+
+Because a heap is always a complete binary tree — all levels filled except possibly the last, which fills left to right — it can be stored in a plain array without any pointers. The position of a node in level-order traversal maps directly to its index.
+
+For a zero-indexed array, the formulas are simple. The parent of index i is at index i minus one, divided by two using floor division. The left child of index i is at two times i plus one. The right child is at two times i plus two. The minimum in a min-heap is always at index zero. These three formulas are all you need to navigate the entire tree.
+
+Insert and Sift Up.
+
+When you insert a new value, you append it to the end of the array. This preserves the complete-tree shape. But the new value may be smaller than its parent, which would violate the heap property.
+
+To fix this, you sift up. Compare the new value with its parent. If it is smaller, swap them. Then compare again with the new parent. Keep swapping upward until the new value is no longer smaller than its parent, or until it reaches the root. Each swap moves up one level, and the tree has at most logarithmic height, so insertion costs at most logarithmic time.
+
+Extract Minimum.
+
+To remove the minimum — the root — you cannot simply delete it, because that would leave a gap at the top of the tree. Instead, you swap the root with the last element in the array, then remove the last element. The root position now holds what used to be a leaf, which is likely larger than its children.
+
+To restore the heap property, you sift down. Compare the new root with its two children. If it is larger than either child, swap it with the smaller of the two. Repeat this process down the tree until the element is smaller than both children or reaches a leaf. Again, at most logarithmic swaps.
+
+Peek — reading the current minimum without removing it — is just reading index zero. Constant time.
+
+Building a Heap in Linear Time.
+
+If you already have an array of values and want to build a heap from them, inserting one at a time takes n log n time. There is a smarter approach: start from the last non-leaf node — which is at index n divided by two, minus one — and apply sift-down to every node from there back to the root.
+
+The key insight is that nodes near the leaves are the majority of the tree, and they require very little work — most need zero or one swaps. The total work across all nodes sums to linear time. This is why Python's heapify function, which converts a list into a heap in place, runs in linear time rather than n log n.
+
+Python's heapq Module.
+
+Python provides a module called heapq that gives you heap operations on a plain list. It is always a min-heap. You call heapify to convert an existing list in place in linear time. You call heappush to insert in logarithmic time. You call heappop to remove the minimum in logarithmic time. To peek, you just read index zero directly.
+
+There is no built-in max-heap in Python's heapq. The standard workaround is to negate all values before pushing and negate again after popping. Pushing negative eight behaves as if you pushed eight into a max-heap — the most negative value, which is the largest original value, bubbles to the top.
+
+Python also provides nsmallest and nlargest functions. These take a count k and a list, and return the k smallest or k largest elements in n log k time. They use a heap internally.
+
+Kotlin's PriorityQueue.
+
+Kotlin and Java use the PriorityQueue class from the standard library. By default it is a min-heap. To create a max-heap, you pass a reverse comparator when constructing it. For custom objects, you supply a comparator that tells the queue which field to compare. The offer method inserts, poll removes the top element, and peek reads it without removing.
+
+The Three Canonical Heap Patterns.
+
+The first pattern is finding the k largest elements. You maintain a min-heap of exactly k elements. For each new value, push it onto the heap. If the heap grows beyond k elements, pop the minimum. At the end, the heap contains the k largest values seen, because anything smaller than the current k-th largest has been evicted. Time is n log k — much better than sorting everything when k is small.
+
+The second pattern is top k frequent elements. First build a frequency map — one pass through the data. Then apply the same fixed-size heap trick, keyed by frequency rather than value. Push each element with its frequency. Evict the least frequent when the heap exceeds size k. At the end, the k most frequent elements remain.
+
+The third pattern is merging k sorted lists. You have k lists, each already sorted, and you want to merge them into one sorted output. The trick is to maintain a min-heap seeded with the first element of each list. On every step, pop the minimum from the heap — that is the next element in the merged output — and push the next element from the same list it came from. Repeat until the heap is empty. With k lists and n total elements, this runs in n log k time, because the heap never grows beyond k entries.
+
+Heap Sort.
+
+Heap sort works in two phases. First, build a max-heap from the array in linear time. Second, repeatedly swap the root — the current maximum — with the last element of the heap, shrink the heap boundary by one, and sift down to restore the max-heap property. After n minus one swaps, the array is sorted in ascending order.
+
+Heap sort is n log n in all cases and uses no extra space beyond the input array. It is not as cache-friendly as quicksort in practice, which is why it appears less often in production sorting libraries, but it has the strong guarantee of n log n worst-case time without the space overhead of merge sort.
+
+Key Takeaways.
+
+A min-heap guarantees that every parent is smaller than or equal to its children. The minimum is always at index zero — constant-time access.
+
+Heaps are stored as arrays. Parent, left child, and right child positions are computed with simple index arithmetic — no pointers needed.
+
+Push costs logarithmic time via sift-up. Pop costs logarithmic time via sift-down. Peek costs constant time. Building a heap from scratch costs linear time using bottom-up sift-down.
+
+Python's heapq module is a min-heap on a plain list. Negate values to simulate a max-heap. Kotlin's PriorityQueue is a min-heap by default; pass a reverse comparator for a max-heap.
+
+The three core patterns are: a fixed-size min-heap for k largest, the same trick keyed by frequency for top-k frequent, and a size-k heap seeded with list fronts for merging k sorted lists.
+
+In the next notebook we look at tries — a tree structure specialised for strings, where each edge represents a single character and common prefixes are shared across all words that start the same way.
