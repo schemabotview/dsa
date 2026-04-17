@@ -3,34 +3,17 @@
 ## Role
 You are a Data Structures & Algorithms expert and content creator. This repo contains educational content covering DSA concepts, targeting developers who want to build strong problem-solving fundamentals and prepare for technical interviews.
 
-## Local Setup Requirements
+See `../CLAUDE.md` for shared notebook conventions, repo structure, audio generation, TTS guidelines, and content guidelines.
 
-To run notebooks locally, install these Python packages:
+## Local Setup
 
 ```bash
 pip install jupyter notebook
 ```
 
-## Repo Structure
-
-- `*.ipynb` — Jupyter notebooks, one per DSA topic. Each notebook contains:
-  - **Markdown cells** — theory, explanations, diagrams (in text), definitions
-  - **Code cells** — hands-on examples, Python implementations, or demos
-- `tts/` — Plain-text `.tts` files, one per topic, used as TTS source scripts
-- `audio/` — Pre-generated audio files (`.wav`) for each topic, generated from `.tts` files using ChatterboxTTS on Colab GPU
-
-## Notebook Conventions
-
-- Filename: `01-arrays-and-strings.ipynb`, `02-linked-lists.ipynb` — leading numbers control sort order
-- Each notebook covers a single topic
-- First cell must be a markdown cell that introduces the topic
-- Use markdown cells for explanations and theory, code cells for runnable examples
-- Outputs (stdout, etc.) can be included — the viewer renders them
-- Notebook filenames use kebab-case and are the single source of truth for naming — `.tts` and `.wav` files use the exact same stem (e.g., `01-arrays-and-strings.ipynb` → `tts/01-arrays-and-strings.tts` → `audio/01-arrays-and-strings.wav`)
-
 ## Dual-Language Code Convention
 
-Every code example is shown in **two languages: Python first, then Kotlin**. Never side-by-side (Jupyter is top-to-bottom); always sequential with a clear label.
+Every code example is shown in **two languages: Python first, then Kotlin**. Never side-by-side — always sequential with a clear label:
 
 ```markdown
 ### Python
@@ -48,28 +31,18 @@ fun binarySearch(arr: List<Int>, target: Int): Int {
 ```
 
 **Why Python + Kotlin:**
-- Python — dynamic, terse, pseudocode-like; the LeetCode default; covers scripting/data/ML audience
-- Kotlin — statically typed, compiled, modern JVM; instantly readable by Java/Scala/Android devs
+- Python — dynamic, terse, pseudocode-like; the LeetCode default
+- Kotlin — statically typed, compiled, modern JVM; readable by Java/Scala/Android devs
 - The contrast (dynamic vs static, implicit vs explicit types) reinforces how data structures work at the type level
-- JS is intentionally excluded — it's dynamically typed like Python, so it adds no new perspective
+- JS is intentionally excluded — dynamically typed like Python, adds no new perspective
 
-## Audio Generation
+## Content Guidelines
 
-Audio is generated locally using ChatterboxTTS in the `chatterbox` conda environment.
-
-```bash
-# Generate audio for a single .tts file
-conda activate chatterbox && python scripts/generate_audio.py tts/01-arrays-and-strings.tts
-
-# Regenerate even if .wav already exists
-conda activate chatterbox && python scripts/generate_audio.py tts/01-arrays-and-strings.tts --force
-```
-
-Steps:
-1. Write/update the `.tts` file in `tts/`
-2. Run the command above (swap the filename for the topic you want)
-3. The `.wav` is saved to `audio/` with the same stem name
-4. Commit and push the generated `.wav`
+- Use Python 3.10+ and Kotlin 1.9+ syntax throughout
+- Every code example must appear in both Python and Kotlin (Python first), each under a `### Python` / `### Kotlin` heading
+- Include time and space complexity analysis for every algorithm
+- Use SVG diagrams wherever a visual aids understanding more than prose (memory layouts, pointer/node chains, tree structures, graph traversals, sliding window movement, DP tables). Save SVGs to `img/` and reference via GitHub raw URL: `![Alt text](https://raw.githubusercontent.com/schemabotview/dsa/main/img/filename.svg)`. Always set explicit `width` and `height` on the `<svg>` element matching the `viewBox` dimensions.
+- Use real-world analogies to explain DSA concepts
 
 ## Topics Covered
 
@@ -99,29 +72,3 @@ Steps:
 | 22 | Greedy Algorithms | `22-greedy-algorithms.ipynb` | `22-greedy-algorithms.wav` |
 | 23 | Bit Manipulation | `23-bit-manipulation.ipynb` | `23-bit-manipulation.wav` |
 | 24 | Interview Patterns & Problem-Solving Framework | `24-interview-patterns.ipynb` | `24-interview-patterns.wav` |
-
-## Content Guidelines
-
-- Write theory in clear, beginner-friendly language
-- Use real-world analogies to explain DSA concepts
-- Keep code examples practical and minimal — demonstrate the concept, not the full API
-- Use Python 3.10+ and Kotlin 1.9+ syntax throughout
-- Every code example must appear in both Python and Kotlin (Python first, then Kotlin), each under a `### Python` / `### Kotlin` heading
-- Each notebook should be self-contained and readable top-to-bottom
-- Include time and space complexity analysis for every algorithm
-- Use SVG diagrams wherever a visual aids understanding more than prose — good candidates: memory layouts, pointer/node chains, tree structures, graph traversals, sliding window movement, DP tables. Save SVGs to `img/` and reference them in markdown cells via GitHub raw URL: `![Alt text](https://raw.githubusercontent.com/schemabotview/dsa/main/img/filename.svg)`. Always set explicit `width` and `height` on the `<svg>` element matching the `viewBox` dimensions — without them the image stretches to fill the container
-- `.tts` files are read aloud by a TTS engine — follow the guidelines below
-
-## TTS Guidelines
-
-- **Plain prose only** — no markdown, no headings with hash symbols, no bullet points, no backticks, no asterisks. Section titles are written as a plain sentence ending with a full stop.
-- **No raw code** — never paste code blocks into a TTS file. Instead, describe what the code does conceptually or in pseudo-code form. For example, instead of `if left < right: mid = (left + right) // 2`, say: "we keep two pointers — one at the start, one at the end — and calculate the midpoint on each iteration."
-- **Spell out symbols and shorthand** — TTS engines read characters literally and stumble on symbols. Apply these rules:
-  - Operators: `//` → "floor division", `%` → "modulo", `->` → "returns", `=>` → "maps to", `===` → "strict equality"
-  - Acronyms: RAM → "ram", CPU → "see-pee-you", API → "ay-pee-eye", DSA → "data structures and algorithms", JVM → "java virtual machine", GC → "garbage collector"
-  - Hex values: `0x0000` → "memory address zero", `0xFF` → "hex F-F"
-  - Complexity: O(1) → "constant time", O(n) → "linear time", O(n log n) → "n log n time"
-  - Variable names: `list_a` → "list A", `mid` → "mid", `left_ptr` → "left pointer"
-- **Natural spoken flow** — write the way a teacher explains at a whiteboard. Use transitional phrases like "notice that", "the key insight here is", "to put it another way". Avoid abrupt topic jumps.
-- **Skip visual-only content** — diagrams, tables, and code outputs are not narrated. Instead, describe what the listener should picture: "imagine a row of numbered boxes, each holding one byte."
-- **Pace with paragraph breaks** — each paragraph is one idea. A blank line between paragraphs gives the TTS engine a natural pause. Do not write walls of text.
