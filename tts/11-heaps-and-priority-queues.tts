@@ -10,6 +10,8 @@ Because a heap is always a complete binary tree — all levels filled except pos
 
 For a zero-indexed array, the formulas are simple. The parent of index i is at index i minus one, divided by two using floor division. The left child of index i is at two times i plus one. The right child is at two times i plus two. The minimum in a min-heap is always at index zero. These three formulas are all you need to navigate the entire tree.
 
+To make this tangible, take the min-heap stored as the array one, three, five, eight, four, six, nine. Index zero holds one — the root and the minimum. The children of index zero sit at indices one and two — three and five. The children of index one — three's children — sit at indices three and four, holding eight and four. The children of index two sit at indices five and six, holding six and nine. Notice the heap property at every node: one is smaller than three and five; three is smaller than eight and four; five is smaller than six and nine. No pointers — the array layout is the tree.
+
 Insert and Sift Up.
 
 When you insert a new value, you append it to the end of the array. This preserves the complete-tree shape. But the new value may be smaller than its parent, which would violate the heap property.
@@ -36,7 +38,7 @@ Python provides a module called heapq that gives you heap operations on a plain 
 
 There is no built-in max-heap in Python's heapq. The standard workaround is to negate all values before pushing and negate again after popping. Pushing negative eight behaves as if you pushed eight into a max-heap — the most negative value, which is the largest original value, bubbles to the top.
 
-Python also provides nsmallest and nlargest functions. These take a count k and a list, and return the k smallest or k largest elements in n log k time. They use a heap internally.
+Python also provides n-smallest and n-largest functions. These take a count k and a list, and return the k smallest or k largest elements in n log k time. They use a heap internally.
 
 Kotlin's PriorityQueue.
 

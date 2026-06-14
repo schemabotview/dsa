@@ -52,6 +52,8 @@ The third is tail recursion. A tail-recursive function makes its recursive call 
 
 The reliable solution is iteration with an explicit stack.
 
+To make the explicit-stack idea concrete, take an iterative factorial. Push the numbers two through n onto a list. Initialise the result to one. While the list is non-empty, pop a value off the end and multiply it into the running result. When the list is empty, the result holds n factorial. This is logically identical to the recursive version — each pop replaces what would have been a returning stack frame — but the depth is now bounded by available heap memory, not by the call stack ceiling. Calling it on a thousand runs cleanly where the recursive version would raise a recursion error.
+
 Common Recursion Patterns.
 
 Recursion appears in a handful of shapes that you will recognise over and over.

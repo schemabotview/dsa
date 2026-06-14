@@ -36,6 +36,8 @@ Appending at the tail without a tail pointer requires walking the entire list to
 
 Inserting after a known node is constant time for the actual rewiring, but linear if you first need to find the target by value. Deletion works similarly — constant time to rewire once you have the predecessor node, linear if you need to search for it.
 
+To make this tangible, imagine a list holding five, ten, thirty, fifty, twenty. To insert ninety-nine after the value thirty, the algorithm walks the chain until it finds the node holding thirty. Then it creates a new node holding ninety-nine, sets the new node's next pointer to whatever thirty was pointing at — fifty — and finally sets thirty's next pointer to the new node. The chain now reads five, ten, thirty, ninety-nine, fifty, twenty. To remove the value ten, the algorithm walks until it finds the node whose next holds ten, then sets that next pointer to skip past ten directly to the following node. The garbage collector reclaims the unreferenced node later. Two pointer updates per operation, regardless of list length.
+
 Doubly Linked List.
 
 A doubly linked list adds a second pointer to every node — a previous pointer that points backward to the preceding node. This gives you two important capabilities.
@@ -45,6 +47,8 @@ First, backward traversal — you can walk the list in either direction. Second,
 The trade-off is memory — every node now stores two pointers instead of one.
 
 A common implementation technique for doubly linked lists is to use sentinel nodes — a dummy head and a dummy tail that are always present even when the list is empty. This eliminates all the special-case logic you would otherwise need for inserting into an empty list or deleting the first or last real node. All operations become uniform: every real node always has both a valid previous and a valid next.
+
+To see the sentinel pattern in action, picture a doubly linked list of just two dummy nodes — head and tail — pointing at each other. To insert a real node before the tail, you create the new node and rewire four pointers: the new node's previous pointer points to whatever was sitting before tail, the new node's next pointer points to tail, the node that used to be before tail has its next updated to the new node, and tail's previous pointer is updated to the new node. To remove a node when you already hold a direct reference to it — no search needed — set its previous neighbour's next pointer to its own next, and its next neighbour's previous pointer to its own previous. The node is unlinked in two pointer updates. Because the dummy head and dummy tail are always present, you never have to special-case an empty list or the boundary nodes.
 
 Python's built-in deque — short for double-ended queue — is implemented as a doubly linked list. It gives constant-time append and pop from both ends, which makes it the right tool whenever you need a queue.
 

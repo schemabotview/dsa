@@ -28,6 +28,8 @@ Python provides two especially useful specialisations of the dictionary. The def
 
 The Counter is a dictionary subclass designed specifically for counting. Pass it any iterable and it builds a frequency map. Missing keys return zero instead of raising an error. The most-common method returns the top entries by count, sorted descending.
 
+To make these concrete — building a graph with defaultdict of list, you can call append on graph at key one without ever initialising graph at key one to an empty list first. The defaultdict creates the empty list lazily on first access. Counting words with Counter is the same idea: pass it the list apple, banana, apple, cherry, banana, apple and you get back a counter mapping apple to three, banana to two, cherry to one. Calling most-common with two returns the top two pairs in descending order. Reading a missing key like mango returns zero, not a key error.
+
 Hash Set.
 
 A hash set is a hash map with no values — only keys. It answers one question in constant time: is this element in the set? It also supports the full vocabulary of set mathematics: union, intersection, difference, and subset checks.
@@ -36,11 +38,15 @@ Use a set whenever you need to eliminate duplicates, check membership quickly, o
 
 The four set operations are intuitive. Union gives you every element that appears in either set. Intersection gives you only elements that appear in both. Difference gives you elements in the first set but not the second. Symmetric difference gives you elements that appear in exactly one of the two sets but not both.
 
+To make the operators tangible, take set A holding one through five, and set B holding three through seven. Union returns every element from either set: one through seven. Intersection returns only what appears in both: three, four, five. Difference of A and B returns elements in A but not B: one and two. Symmetric difference returns elements in exactly one of the two sets: one, two, six, seven. The subset check between the small set three-four and A returns true, because every element of the smaller set is present in the larger one.
+
 The Four Canonical Patterns.
 
 Pattern one is frequency counting. Build a map from each element to the number of times it appears — one pass, linear time. From that frequency map you can check anagrams, find the most common elements, detect imbalances, and much more. Python's Counter makes this one line.
 
 Pattern two is grouping. Build a map from a canonical key to a list of all elements that share that key. The group anagrams problem is the classic example: sort each word alphabetically to get its canonical form, then group all words with the same sorted form. Words that are anagrams of each other will have identical sorted versions and end up in the same group.
+
+For the words eat, tea, tan, ate, nat, bat — sorting the letters of each gives the canonical keys a-e-t, a-e-t, a-n-t, a-e-t, a-n-t, a-b-t. A defaultdict of lists keyed by canonical form ends up with three buckets: eat, tea, and ate share the key a-e-t; tan and nat share a-n-t; bat sits alone under a-b-t.
 
 Pattern three is the complement lookup — also called the two-pass hash map or one-pass lookup. The two-sum problem illustrates it perfectly. You want to find two numbers that add to a target. The naive approach checks every pair — quadratic time. With a hash map you make one pass: for each element, check whether its complement — the target minus the current value — is already in the map. If it is, you found your pair. If not, store the current element and move on. One pass, constant-time lookup per element, linear time total.
 
@@ -52,7 +58,7 @@ A key must be hashable — its hash value must be stable and must agree with equ
 
 In Python, integers, floats, strings, and tuples of hashable elements are all hashable and can be keys. Lists, dictionaries, and plain sets cannot — they are mutable. If you need an immutable set as a key, use a frozenset.
 
-In Kotlin, any class that correctly implements hashCode and equals can be a map key. Data classes do this automatically and correctly, which makes them natural map keys.
+In Kotlin, any class that correctly implements hash-code and equals can be a map key. Data classes do this automatically and correctly, which makes them natural map keys.
 
 HashMap versus TreeMap versus Array.
 

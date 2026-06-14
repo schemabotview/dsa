@@ -8,7 +8,7 @@ Think of a stack of plates. You place a new plate on top. You take a plate from 
 
 All four core operations are constant time. Push adds an element to the top. Pop removes and returns the top element. Peek returns the top element without removing it. And is-empty checks whether the stack has any elements. Each of these is a single step regardless of how many elements are in the stack.
 
-In Python, a plain list makes a perfectly good stack. The append method pushes to the end — the logical top — and the pop method removes from the end. Both are constant time. In Kotlin, the ArrayDeque class serves the same purpose, with addLast for push and removeLast for pop.
+In Python, a plain list makes a perfectly good stack. The append method pushes to the end — the logical top — and the pop method removes from the end. Both are constant time. In Kotlin, the ArrayDeque class serves the same purpose, with add-last for push and remove-last for pop.
 
 Balanced Parentheses.
 
@@ -34,9 +34,9 @@ Think of a checkout line at a shop. New customers join the back of the queue. Th
 
 All four core operations are constant time: enqueue adds an element at the rear, dequeue removes and returns the element at the front, peek returns the front element without removing it, and is-empty checks whether the queue has any elements.
 
-There is an important pitfall in Python. Do not use a plain list as a queue. The list's pop-zero method removes the first element, but it does so by shifting every remaining element one position to the left — linear time. With a large queue this becomes a serious bottleneck. The correct tool is the deque from Python's collections module, which gives constant-time removal from the front through its popleft method. In Kotlin, ArrayDeque with addLast and removeFirst gives the same constant-time behaviour.
+There is an important pitfall in Python. Do not use a plain list as a queue. The list's pop-zero method removes the first element, but it does so by shifting every remaining element one position to the left — linear time. With a large queue this becomes a serious bottleneck. The correct tool is the deque from Python's collections module, which gives constant-time removal from the front through its pop-left method. In Kotlin, ArrayDeque with add-last and remove-first gives the same constant-time behaviour.
 
-BFS and the Queue.
+Breadth-first Search and the Queue.
 
 Breadth-first search is the most natural use of a queue. The algorithm explores a graph level by level — all nodes one step away from the start are visited before any nodes two steps away, and so on. A queue enforces this ordering automatically: nodes are enqueued when they are discovered and dequeued when they are processed, so the first discovered nodes are always processed first.
 

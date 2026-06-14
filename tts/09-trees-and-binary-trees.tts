@@ -24,6 +24,8 @@ A tree node holds a value and two optional references: one to a left child and o
 
 Once you have a node class, building a tree is just nesting constructor calls. The root node receives its value plus references to its left and right subtrees, which are themselves nodes constructed the same way.
 
+To make this concrete, picture a small tree with root four. Four has two children — two on the left and six on the right. Two in turn has children one and three. Six has children five and seven. In code, you build this bottom up: construct the leaf nodes one, three, five, and seven first, then construct two with one and three as its children, six with five and seven as its children, and finally four with two and six as its children. The result is a balanced binary tree of seven nodes with height two. This is the sample tree we will use to demonstrate every operation that follows.
+
 Tree Traversals.
 
 Traversal means visiting every node exactly once in a defined order. There are four standard traversals.
@@ -42,11 +44,15 @@ All four traversals take linear time — every node is visited exactly once.
 
 The code pattern for depth-first traversals is the same in all three cases. You handle the empty node as the base case, returning an empty result. Then you recurse into the left subtree, recurse into the right subtree, and combine the results with the current node's value. The only thing that changes is where you place the current node's value — before the recursive calls for pre-order, between them for in-order, or after them for post-order.
 
+On the sample tree with root four, in-order produces one, two, three, four, five, six, seven — sorted, because the tree happens to satisfy the binary search tree property. Pre-order produces four, two, one, three, six, five, seven — the root of every subtree appears first. Post-order produces one, three, two, five, seven, six, four — the root of every subtree appears last. Level-order produces three levels: four on its own, then two and six, then one, three, five, seven — one row per depth.
+
 Tree Height and Depth.
 
 Computing the height of a tree is a clean example of recursive thinking. The height of an empty tree is defined as minus one. The height of a leaf is zero. The height of any other node is one plus the maximum of the heights of its left and right subtrees. This definition naturally produces a recursive function — call it on the left child, call it on the right child, take the larger result and add one.
 
 Finding the depth of a specific node follows a similar pattern. You carry a counter that starts at zero and increments with each recursive call. When you reach the target node, the counter holds the depth. If you exhaust the tree without finding the node, you return minus one.
+
+On the sample tree, the height of each leaf — one, three, five, seven — is zero. The height of node two, whose children are leaves, is one. The height of the root four is two. Depth runs the other direction: the root sits at depth zero, two and six at depth one, and the four leaves at depth two.
 
 Counting Nodes and Leaves.
 

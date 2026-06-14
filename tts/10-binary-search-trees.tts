@@ -8,6 +8,8 @@ The ordering rule is recursive — it does not just apply to direct children, it
 
 A direct consequence of this rule is that in-order traversal of a binary search tree always visits nodes in sorted ascending order. You recurse left as deep as possible, visit the current node, then recurse right. Because every left value is smaller and every right value is larger, the result is naturally sorted.
 
+Picture a concrete example we will use throughout this notebook. Insert the values eight, three, ten, one, six, fourteen, four, seven, and thirteen in that order. Eight becomes the root because it arrives first. Three is smaller than eight, so it goes left. Ten is larger, so it goes right. One is smaller than both eight and three, so it lands as the left child of three. Six is smaller than eight but larger than three, so it lands as the right child of three. Continuing in the same way, you end up with a tree whose in-order traversal gives one, three, four, six, seven, eight, ten, thirteen, fourteen — sorted, as the property guarantees.
+
 Searching.
 
 Searching in a binary search tree is guided at every step. You start at the root. If the target equals the current node's value, you are done. If the target is smaller, you go left — because every value to the right is already larger than the current node, and therefore larger than the target. If the target is larger, you go right. At each level you discard an entire half of the remaining tree.
@@ -26,6 +28,8 @@ Minimum, Maximum, and Successor.
 
 The minimum value in a binary search tree is always the leftmost node. You walk left as far as possible — when there is no more left child, you have reached the smallest value. Maximum is the mirror: walk right until there is no right child.
 
+On the sample tree, walking left from the root eight gives you three, then one — and one has no left child, so one is the minimum. Walking right from the root gives you ten, then fourteen — and fourteen has no right child, so fourteen is the maximum.
+
 The in-order successor of a node is the smallest value that is larger than it — the node you would visit immediately after it in an in-order traversal. If the node has a right subtree, the successor is the minimum of that right subtree. This concept is used directly in the deletion algorithm.
 
 Deletion.
@@ -40,6 +44,8 @@ The third case is the hardest: the node has two children. You cannot simply remo
 
 The result is a valid binary search tree with the correct ordering property maintained throughout.
 
+On the sample tree, deleting three is the case-three scenario — three has both a left child, one, and a right child, six. The in-order successor is the minimum of three's right subtree, which is four. Copy four into three's slot, then recursively delete the original four from the right subtree. The tree now reads one, four, six, seven, eight, ten, thirteen, fourteen in order. Deleting fourteen is the case-two scenario — fourteen has only a left child, thirteen. Bypass fourteen and connect its parent, ten, directly to thirteen.
+
 Validating a BST.
 
 A common mistake when validating a binary search tree is to check only that each node's left child is smaller and right child is larger. This is not sufficient. Consider a node deep in the left subtree that happens to be larger than the root — the local check passes, but the global ordering is violated.
@@ -51,6 +57,8 @@ Building a Balanced BST from a Sorted Array.
 If you are given a sorted array and want to build a balanced binary search tree from it, the strategy is to always pick the midpoint of the current subarray as the root. The elements to the left of the midpoint become the left subtree, and the elements to the right become the right subtree. Applying this recursively produces a perfectly balanced tree.
 
 For an array of seven elements, the resulting tree has height two — the minimum possible. This technique is linear time because every element is visited exactly once.
+
+To trace this on the sorted array one through seven: the midpoint is four — that becomes the root. The left half — one, two, three — recursively becomes the left subtree, with two as its root. The right half — five, six, seven — recursively becomes the right subtree, with six as its root. One, three, five, seven all end up as leaves. The result is a perfect tree with seven nodes and height two.
 
 Performance.
 
