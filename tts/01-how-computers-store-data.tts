@@ -18,6 +18,10 @@ When you store an integer, it does not fit in one byte. A standard integer takes
 
 To put it another way — imagine a row of numbered boxes at a post office. Each box holds a fixed amount. When you rent four consecutive boxes starting at number one hundred, anyone who knows the starting number and the count can find your parcel immediately. That is exactly how your program finds a value in memory.
 
+To see this concretely, you can ask Python how many bytes a value takes and where it lives in memory. The size-of function reports the byte count, and the id function returns the address. If you print these for an integer holding forty-two, you will see that Python reports more than the raw four bytes you might expect — that is because Python wraps every value in an object with extra metadata, like its type and a reference count. The raw concept is what matters here, not the exact overhead. Print the size and address of a string and a list, and you get distinct hexadecimal numbers — each object lives at its own unique location on the heap.
+
+Kotlin on the java virtual machine is different. Primitive types give you the raw size directly. Int dot SIZE underscore BYTES returns four. Long dot SIZE underscore BYTES returns eight. Char dot SIZE underscore BYTES returns two, because Kotlin uses UTF-sixteen for characters. These are the real primitive widths — no object overhead, no metadata. The contrast is useful — Python prioritizes flexibility and pays for it in bytes, while Kotlin gives you the lean primitive when you ask for one.
+
 The Stack and the Heap.
 
 Your program's memory is divided into two main regions, and they behave very differently from each other.
@@ -27,6 +31,10 @@ The first is called the stack. When your program calls a function, a block of me
 The second region is the heap. The heap is where objects and collections live — anything that needs to grow dynamically or outlive the function that created it. The heap is large and flexible, but slower, because the runtime has to find a free region of the right size whenever you allocate something new. Objects on the heap are reclaimed by the garbage collector once nothing references them anymore.
 
 Think of the stack like a tray of dishes at a cafeteria — you always add and remove from the top, and the structure is perfectly orderly. The heap is more like a parking lot — cars come and go in any slot, in any order, and finding a free space takes a little more work.
+
+Picture a small Python program with two functions — a main function that defines x and y, and an add function that takes two numbers and returns their sum. When main runs, its frame is pushed with slots for x, y, and total. When main calls add, a new frame is pushed on top of main's frame, holding a, b, and a local result. The moment add returns its result, that entire frame is popped — a, b, and result all disappear at once. Control returns to main, and main's frame is the only one left on the stack. When the print line runs, add's frame is already gone — there is no trace of it.
+
+The same pattern holds in Kotlin. The primitive integers x and y sit directly inside main's stack frame. Calling add pushes a new frame with a and b. The result is computed, the frame is popped, and only the return value travels back. No allocator, no garbage collection — the stack handles all of it automatically.
 
 Value Types versus Reference Types.
 
@@ -38,9 +46,9 @@ A reference type works differently. The variable does not hold the data itself. 
 
 Here is a concrete way to think about it. Imagine you have a document on your desk — that is a value type. If you photocopy it and give the copy to a colleague, you each have your own version. Now imagine a shared document on a company server, and you give a colleague the link — that is a reference type. You both have the link, but there is only one document. If either of you edits it, you both see the change.
 
-In Python, every variable is a reference. Even integers are objects on the heap that variables point to. Python caches small integers as an optimisation, so two variables holding the value forty-two might actually point to the same object in memory. Mutable objects like lists make this especially important — assigning a list to a second variable does not copy the list. Both variables point to the same list, and a change through either one affects both.
+A short Python demonstration makes this vivid. Assign forty-two to a, then assign a to b. Both variables hold the same cached integer, so Python's is operator returns true — they really are the same object in memory. Now create a list called list A holding one, two, three, and assign it to list B. Calling append four on list B does not just add a four to list B — it mutates the single list that both names point to. Print list A and list B, and they both show one, two, three, four. The is operator confirms they are the same object. Assignment never copied the list — it only copied the reference.
 
-In Kotlin and on the java virtual machine, primitive types like integers and booleans are genuine value types — they are stored directly on the stack when used as local variables. But the moment you put an integer into a collection, the java virtual machine boxes it — wrapping it in an object and moving it to the heap. This is why typed collections in Kotlin and Java are slower for primitives than raw arrays.
+In Kotlin, the contrast is sharper because primitives really are values. Set a to forty-two, then set b equal to a, then change b to ninety-nine. Reading a still gives forty-two — b got its own independent copy on the stack, and changing it has no effect on a. Now repeat with a mutable list. List A holds one, two, three. List B is set equal to list A. Adding four to list B mutates the shared list, and both list A and list B show one, two, three, four. The triple-equals identity check returns true, confirming they reference the same object. Same picture as Python — just with a stricter type system around it.
 
 Why This Matters for Data Structures.
 
