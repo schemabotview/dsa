@@ -33,7 +33,8 @@ the slug and renders "no scene or slug".
 | `ch04` | Ordered Data, Searching, and Sorting | 8 | authored, no audio yet |
 | `ch05` | Hashing, Sets, and Maps | 7 | authored, no audio yet |
 | `ch06` | Trees and Ordered Indexes | 8 | authored, no audio yet |
-| `ch07`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
+| `ch07` | Heaps and Priority-Driven Processing | 7 | authored, no audio yet |
+| `ch08`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
 
 The running example is the **delivery planner**: `examples/ch01/planner.py` defines `Parcel(pid,
 depot, weight)` and the four canonical parcels `P-104 / P-221 / P-317 / P-458`. Later chapters extend
@@ -99,6 +100,10 @@ output) · `space`, `timing` (code → output). One per section, 01–08.
 ## Scene inventory — ch06
 
 `tree-anatomy`, `augmented` (7-node depot tree → code → output) · `traversals` (stack memory → code → output) · `bst-search` (module → demo output → property group) · `bst-delete` (cases group → code → output) · `skew` (chain beside balanced tree → code → output) · `avl` (before/after rotation → code → output) · `btree` (B-tree → cost-model table → output). One per section, 01–08.
+
+## Scene inventory — ch07
+
+`pq-contract` (ops group → code → output) · `heap-layout` (tree beside array → code → output) · `sift`, `topk` (code → output) · `build-heap` (work-by-height table → code → output) · `heapsort`, `lazy` (code → output → comparison table). One per section, 01–07.
 
 ## Layout lessons from ch01
 

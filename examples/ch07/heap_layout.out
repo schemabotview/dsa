@@ -1,0 +1,4 @@
+children of index 1: 3 4 -> 7 4
+parent of index 5: 2 -> 2
+min-heap? True
+sorted?  False
