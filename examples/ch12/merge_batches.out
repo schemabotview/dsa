@@ -1,0 +1,2 @@
+interval DP: 200  brute force: 200
+states: 10  choices each: < n

@@ -38,7 +38,8 @@ the slug and renders "no scene or slug".
 | `ch09` | Graph Representation and Traversal | 8 | authored, no audio yet |
 | `ch10` | Shortest Paths and Spanning Networks | 8 | authored, no audio yet |
 | `ch11` | Greedy Design and Exchange Reasoning | 6 | authored, no audio yet |
-| `ch12`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
+| `ch12` | Dynamic Programming and State Design | 8 | authored, no audio yet |
+| `ch13`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
 
 The running example is the **delivery planner**: `examples/ch01/planner.py` defines `Parcel(pid,
 depot, weight)` and the four canonical parcels `P-104 / P-221 / P-317 / P-458`. Later chapters extend
@@ -124,6 +125,10 @@ output) · `space`, `timing` (code → output). One per section, 01–08.
 ## Scene inventory — ch11
 
 `greedy-choice` (parts group → code → output) · `exchange` (row of proof chain + code → output) · `intervals`, `weighted-fail` (timeline plot → row of code + output) · `huffman` (code tree → row of code + output) · `graph-greedy` (code → output → proofs table). Plot lines: `external` renders grey in plots, so highlighted series use an explicit hex.
+
+## Scene inventory — ch12
+
+`overlap` (memo memory → code → output) · `recurrence` (data module → row of code + output) · `memo-table` (code → output → comparison table) · `reconstruct` (row of OPT memory + code → output) · `sequences` (code → row of two outputs) · `knapsack` (code → output) · `interval-dp` (code → output → DAG group) · `dp-costs` (row of code + output → output). Shared data: `examples/ch12/slots.py` (Chapter 11's weighted slots).
 
 ## Layout lessons from ch01
 

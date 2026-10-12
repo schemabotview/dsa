@@ -10,5 +10,6 @@
   "ch08": "Backtracking and Branch and Bound: Exhaustive Search Explained",
   "ch09": "Graph Algorithms: BFS, DFS, Topological Sort and Strongly Connected Components",
   "ch10": "Dijkstra, Bellman-Ford and Minimum Spanning Trees Explained",
-  "ch11": "Greedy Algorithms: Exchange Arguments, Interval Scheduling and Huffman Coding"
+  "ch11": "Greedy Algorithms: Exchange Arguments, Interval Scheduling and Huffman Coding",
+  "ch12": "Dynamic Programming Explained: Memoisation, Knapsack and Edit Distance"
 }

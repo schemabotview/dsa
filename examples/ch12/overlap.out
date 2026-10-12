@@ -1,0 +1,2 @@
+fib      fib(25) = 75025  calls: 242785
+fib_memo fib(25) = 75025  calls: 26
