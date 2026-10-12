@@ -1,0 +1,5 @@
+'{[()()]}'   balanced
+'([)]'       mismatch at 2
+'(()'        unclosed at 0
+''           balanced
+'a[b(c)]d'   balanced

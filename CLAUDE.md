@@ -29,7 +29,8 @@ the slug and renders "no scene or slug".
 | --- | --- | --- | --- |
 | `ch01` | Problems, Algorithms, and Correctness | 7 (plan 1.1–1.7) | authored, no audio yet |
 | `ch02` | Analysing Time, Space, and Growth | 8 | authored, no audio yet |
-| `ch03`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
+| `ch03` | Sequences, Links, Stacks, and Queues | 8 | authored, no audio yet |
+| `ch04`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
 
 The running example is the **delivery planner**: `examples/ch01/planner.py` defines `Parcel(pid,
 depot, weight)` and the four canonical parcels `P-104 / P-221 / P-317 / P-458`. Later chapters extend
@@ -80,6 +81,10 @@ shows: they back claims made on slides 06 and 07, and `npm run examples` keeps t
 table) · `cases` (code → output → group) · `growth` (plot → output) · `recursion-tree` (call tree →
 output) · `space`, `timing` (code → output). One per section, 01–08.
 
+## Scene inventory — ch03
+
+`arrays` (memory + leaf → code → output) · `dynamic-array`, `deque`, `tradeoffs` (… → code → output) · `singly-linked` (LR chain → code → output) · `doubly-linked` (LR ring → class file → demo output) · `stack`, `ring-buffer` (memory state → code → output). One per section, 01–08.
+
 ## Layout lessons from ch01
 
 - **Prefer `flow: 'TB'`.** Every LR board of two or more wide nodes (memory, table, code) rendered at
@@ -89,6 +94,10 @@ output) · `space`, `timing` (code → output). One per section, 01–08.
   bold text and keep chips for short identifiers.
 - `focus` and node ids must be written as literal `id: '…'` — `check` cannot see ids built by a
   helper function.
+- **Never draw a cycle** (an edge back to an earlier node in the same LR/TB chain): the layout
+  routes it through other nodes. Say it in a `sub` instead (`next is the sentinel`).
+- Code cards above ~30 lines shrink the whole board. Split a long example into a class file (shown)
+  and a demo file (its output shown), as `dlist.py` / `doubly_linked.py` do.
 - Plot `label`s need `labelAt` as soon as two series end near the same corner.
 - **Keep the slide `##` to one line (≲ 30 chars).** `check` models the heading as a single line, so a
   wrapped heading adds ~50px it cannot see. `Section.title` (the catalog) can stay the full plan title.

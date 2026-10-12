@@ -7,7 +7,7 @@ section per plan section. Scaffolded from `schemabotview/content-repo-template`.
 | course | chapter | status |
 | --- | --- | --- |
 | `ch01` | Problems, Algorithms, and Correctness — 7 sections | authored; narration audio not generated yet |
-| `ch02`–`ch14` | see the plan | not started |
+| `ch02`–`ch14` | see the plan | being authored, one commit per chapter |
 
 ```sh
 npm install
