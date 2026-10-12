@@ -37,7 +37,8 @@ the slug and renders "no scene or slug".
 | `ch08` | Recursion, Exhaustive Search, and Pruning | 7 | authored, no audio yet |
 | `ch09` | Graph Representation and Traversal | 8 | authored, no audio yet |
 | `ch10` | Shortest Paths and Spanning Networks | 8 | authored, no audio yet |
-| `ch11`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
+| `ch11` | Greedy Design and Exchange Reasoning | 6 | authored, no audio yet |
+| `ch12`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
 
 The running example is the **delivery planner**: `examples/ch01/planner.py` defines `Parcel(pid,
 depot, weight)` and the four canonical parcels `P-104 / P-221 / P-317 / P-458`. Later chapters extend
@@ -119,6 +120,10 @@ output) · `space`, `timing` (code → output). One per section, 01–08.
 ## Scene inventory — ch10
 
 `relaxation`, `union-find` (row of memory state + code → output) · `dag-paths` (row of table + code → output) · `dijkstra` (code → row of output, negative-edge graph, its output) · `bellman-ford`, `floyd`, `kruskal-prim` (code → output → table) · `spanning` (MST chain beside shortest-path tree → output). Shared data: `examples/ch10/weighted.py`.
+
+## Scene inventory — ch11
+
+`greedy-choice` (parts group → code → output) · `exchange` (row of proof chain + code → output) · `intervals`, `weighted-fail` (timeline plot → row of code + output) · `huffman` (code tree → row of code + output) · `graph-greedy` (code → output → proofs table). Plot lines: `external` renders grey in plots, so highlighted series use an explicit hex.
 
 ## Layout lessons from ch01
 

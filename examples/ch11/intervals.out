@@ -1,0 +1,5 @@
+earliest finish 4 2
+earliest start  3 2
+shortest        4 1
+optimum         4 2
+[(1, 4), (5, 7), (8, 11), (12, 16)]

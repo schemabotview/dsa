@@ -1,0 +1,8 @@
+take North-East 4: lightest of 2 crossing edges? True
+take West-South 6: lightest of 2 crossing edges? True
+take Hub-West 7: lightest of 4 crossing edges? True
+take East-Hub 9: lightest of 3 crossing edges? True
+take South-Port 10: lightest of 2 crossing edges? True
+skip North-Hub 12: closes a cycle
+skip Hub-South 15: closes a cycle
+skip East-Port 30: closes a cycle
