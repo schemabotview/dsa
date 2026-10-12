@@ -1,0 +1,5 @@
+pattern: A B A B A C
+pi:      0 0 1 2 3 0
+([2], 12)
+[0, 2, 4]
+naive's worst case: 1901 steps

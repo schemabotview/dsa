@@ -11,5 +11,6 @@
   "ch09": "Graph Algorithms: BFS, DFS, Topological Sort and Strongly Connected Components",
   "ch10": "Dijkstra, Bellman-Ford and Minimum Spanning Trees Explained",
   "ch11": "Greedy Algorithms: Exchange Arguments, Interval Scheduling and Huffman Coding",
-  "ch12": "Dynamic Programming Explained: Memoisation, Knapsack and Edit Distance"
+  "ch12": "Dynamic Programming Explained: Memoisation, Knapsack and Edit Distance",
+  "ch13": "String Searching: Tries, KMP, Rabin-Karp and Suffix Arrays"
 }

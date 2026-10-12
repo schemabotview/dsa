@@ -1,0 +1,3 @@
+str.find       20.7 µs
+in             19.8 µs
+kmp_find     3059.1 µs

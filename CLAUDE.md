@@ -39,7 +39,8 @@ the slug and renders "no scene or slug".
 | `ch10` | Shortest Paths and Spanning Networks | 8 | authored, no audio yet |
 | `ch11` | Greedy Design and Exchange Reasoning | 6 | authored, no audio yet |
 | `ch12` | Dynamic Programming and State Design | 8 | authored, no audio yet |
-| `ch13`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
+| `ch13` | Strings and Prefix-Based Structures | 7 | authored, no audio yet |
+| `ch14`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
 
 The running example is the **delivery planner**: `examples/ch01/planner.py` defines `Parcel(pid,
 depot, weight)` and the four canonical parcels `P-104 / P-221 / P-317 / P-458`. Later chapters extend
@@ -129,6 +130,10 @@ output) · `space`, `timing` (code → output). One per section, 01–08.
 ## Scene inventory — ch12
 
 `overlap` (memo memory → code → output) · `recurrence` (data module → row of code + output) · `memo-table` (code → output → comparison table) · `reconstruct` (row of OPT memory + code → output) · `sequences` (code → row of two outputs) · `knapsack` (code → output) · `interval-dp` (code → output → DAG group) · `dp-costs` (row of code + output → output). Shared data: `examples/ch12/slots.py` (Chapter 11's weighted slots).
+
+## Scene inventory — ch13
+
+`units`, `naive` (table → code → output) · `trie`, `kmp` (row of structure + code → output) · `rolling` (code → output) · `suffix-array` (row of code + output → memory block) · `workload` (tool table → recorded timing row). `workload.measured` is a recorded timing, never diffed.
 
 ## Layout lessons from ch01
 
