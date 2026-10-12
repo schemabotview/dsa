@@ -1,0 +1,6 @@
+Hub neighbours: ['North', 'East', 'West']
+North -> Hub too: True
+one-way: {'Hub': ['Port'], 'Port': []}
+Hub to East: 9 min
+parallel edges: {('Hub', 'North'): ['A-road', 'toll road']}
+V = 8  E = 7

@@ -1,0 +1,3 @@
+hops: {'North': 0, 'Hub': 1, 'East': 1, 'West': 2, 'South': 3, 'Port': 4}
+North to Port: ['North', 'Hub', 'West', 'South', 'Port']
+reaches Airfield? False

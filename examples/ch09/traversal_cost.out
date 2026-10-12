@@ -1,0 +1,4 @@
+V=1000 E=2993
+adjacency list steps:   3993
+adjacency matrix steps: 1001000
+memory cells: list 3993  matrix 1000000

@@ -1,0 +1,5 @@
+V=8 E=7
+list cells:   14 = 2E
+matrix cells: 64 = V^2
+edge Hub-Port? list scans 3 | matrix: 0
+Hub neighbours: list gives 3 | matrix scans a row of 8

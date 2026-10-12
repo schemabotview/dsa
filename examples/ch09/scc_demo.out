@@ -1,0 +1,2 @@
+components: [['A', 'B', 'C'], ['D', 'E'], ['F']]
+condensation edges: [('A', 'D'), ('D', 'F')]

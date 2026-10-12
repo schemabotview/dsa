@@ -35,7 +35,8 @@ the slug and renders "no scene or slug".
 | `ch06` | Trees and Ordered Indexes | 8 | authored, no audio yet |
 | `ch07` | Heaps and Priority-Driven Processing | 7 | authored, no audio yet |
 | `ch08` | Recursion, Exhaustive Search, and Pruning | 7 | authored, no audio yet |
-| `ch09`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
+| `ch09` | Graph Representation and Traversal | 8 | authored, no audio yet |
+| `ch10`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
 
 The running example is the **delivery planner**: `examples/ch01/planner.py` defines `Parcel(pid,
 depot, weight)` and the four canonical parcels `P-104 / P-221 / P-317 / P-458`. Later chapters extend
@@ -110,6 +111,10 @@ output) · `space`, `timing` (code → output). One per section, 01–08.
 
 `recursive-contract`, `backtracking`, `explicit-stack` (code → output) · `state-space` (decision tree → code + output row) · `enumeration`, `duplicates` (code → output → table/group) · `branch-bound` (sound row above unsound row). One per section, 01–07.
 
+## Scene inventory — ch09
+
+`graph-models`, `bfs` (row of TB graph + code → output) · `representations` (list table beside matrix table → code → output) · `dfs` (LR task graph with intervals → code → output) · `cycles` (diamond → code → output) · `topo` (in-degree table → code → output) · `scc` (component chain → module → demo output) · `traversal-cost` (code → output → table). Shared data: `examples/ch09/depots.py` (ROADS, TASKS).
+
 ## Layout lessons from ch01
 
 - **Prefer `flow: 'TB'`.** Every LR board of two or more wide nodes (memory, table, code) rendered at
@@ -121,6 +126,9 @@ output) · `space`, `timing` (code → output). One per section, 01–08.
   helper function.
 - **Never draw a cycle** (an edge back to an earlier node in the same LR/TB chain): the layout
   routes it through other nodes. Say it in a `sub` instead (`next is the sentinel`).
+- **Graphs with many nodes:** an LR graph renders wide and flat, a TB one tall and narrow, and
+  either shrinks the code under it. Put the graph and its code side by side in an LR row, with the
+  output below (`graph-models`, `bfs`).
 - Code cards above ~30 lines shrink the whole board. Split a long example into a class file (shown)
   and a demo file (its output shown), as `dlist.py` / `doubly_linked.py` do.
 - Plot `label`s need `labelAt` as soon as two series end near the same corner.

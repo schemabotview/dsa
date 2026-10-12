@@ -1,0 +1,2 @@
+diamond  path state: False  visited flag: True
+loop     path state: True   visited flag: True
