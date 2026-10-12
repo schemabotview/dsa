@@ -1,0 +1,4 @@
+124750 124750
+elements copied by slicing: 124750
+recursion limit: 1000
+5000 deep: RecursionError

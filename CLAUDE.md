@@ -28,7 +28,8 @@ the slug and renders "no scene or slug".
 | course | chapter | sections | status |
 | --- | --- | --- | --- |
 | `ch01` | Problems, Algorithms, and Correctness | 7 (plan 1.1–1.7) | authored, no audio yet |
-| `ch02`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
+| `ch02` | Analysing Time, Space, and Growth | 8 | authored, no audio yet |
+| `ch03`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
 
 The running example is the **delivery planner**: `examples/ch01/planner.py` defines `Parcel(pid,
 depot, weight)` and the four canonical parcels `P-104 / P-221 / P-317 / P-458`. Later chapters extend
@@ -46,6 +47,9 @@ stdout differs from its `.out`; `python3 examples/run.py --update` rewrites them
   label if the interpreter changes.
 - Keep example lines ≲ 60 chars — a code card's width follows its longest line, and a wide card
   shrinks the whole board.
+- **Timing is the one exception.** It is not reproducible, so a timing script's output is recorded once
+  as `<name>.measured` (never diffed by `run.py`) and its card is labelled `one recorded run`.
+- `run.py` puts `examples/ch01` on `PYTHONPATH`, so every chapter can `from planner import …`.
 - Version-dependent behaviour is called out where it is shown (e.g. `sum()` of floats is compensated
   since CPython 3.12, so `arithmetic.py` demonstrates rounding with an explicit `+=` loop).
 
@@ -70,11 +74,21 @@ slide gets a sentence in the narration, so the two halves stay derived from one 
 `examples/ch01/` also keeps `aliasing.py`, `boundary_cases.py` and `arithmetic.py`, which no card
 shows: they back claims made on slides 06 and 07, and `npm run examples` keeps those claims true.
 
+## Scene inventory — ch02
+
+`cost-model` (group → code → output) · `counting` (code → output + rules table) · `bounds` (plot →
+table) · `cases` (code → output → group) · `growth` (plot → output) · `recursion-tree` (call tree →
+output) · `space`, `timing` (code → output). One per section, 01–08.
+
 ## Layout lessons from ch01
 
 - **Prefer `flow: 'TB'`.** Every LR board of two or more wide nodes (memory, table, code) rendered at
   a third of the pane's height. Five-step pipelines go in two LR rows nested in TB groups
   (`constraint-objective`).
+- A long formula in an inline-code chip wraps mid-formula on the slide. Write formulas as plain or
+  bold text and keep chips for short identifiers.
+- `focus` and node ids must be written as literal `id: '…'` — `check` cannot see ids built by a
+  helper function.
 - Plot `label`s need `labelAt` as soon as two series end near the same corner.
 - **Keep the slide `##` to one line (≲ 30 chars).** `check` models the heading as a single line, so a
   wrapped heading adds ~50px it cannot see. `Section.title` (the catalog) can stay the full plan title.

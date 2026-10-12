@@ -5,7 +5,11 @@ The code cards in src/scenes import these .py and .out files verbatim (vite `?ra
 
     python3 examples/run.py            # check
     python3 examples/run.py --update   # rewrite .out files from a fresh run
+
+Timing output is not reproducible, so it lives in `*.measured` files: one recorded run, shown on
+screen as such, and never compared here.
 """
+import os
 import shutil
 import subprocess
 import sys
@@ -18,7 +22,8 @@ failed = 0
 
 for out in sorted(ROOT.glob("ch*/*.out")):
     script = out.with_suffix(".py")
-    run = subprocess.run([PY, script.name], cwd=script.parent, capture_output=True, text=True)
+    env = {**os.environ, "PYTHONPATH": str(ROOT / "ch01")}   # the canonical planner.py
+    run = subprocess.run([PY, script.name], cwd=script.parent, env=env, capture_output=True, text=True)
     got = run.stdout + run.stderr
     if update:
         out.write_text(got)
