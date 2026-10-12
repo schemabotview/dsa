@@ -1,0 +1,4 @@
+Kruskal: ['North-East', 'West-South', 'Hub-West', 'East-Hub', 'South-Port']
+MST total: 36  Prim agrees: 36
+shortest-path tree from North, total: 59
+forest edges: 6 for 8 vertices

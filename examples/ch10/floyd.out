@@ -1,0 +1,5 @@
+         North   East    Hub   West
+North        0      4     12     19
+East         4      0      9     16
+Hub         12      9      0      7
+West        19     16      7      0

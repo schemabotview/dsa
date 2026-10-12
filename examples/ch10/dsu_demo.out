@@ -1,0 +1,7 @@
+union North East  -> True
+union Hub   West  -> True
+union East  Hub   -> True
+union West  North -> False
+same set North, West: True
+same set North, South: False
+parents: {'North': 'North', 'East': 'North', 'Hub': 'North', 'West': 'North', 'South': 'South'}

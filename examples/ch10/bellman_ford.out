@@ -1,0 +1,2 @@
+{'Hub': 0, 'A': 4, 'B': 2, 'C': 8, 'Port': 4, 'Annex': inf}
+{'Hub': 0, 'A': '-inf', 'B': '-inf', 'C': 8, 'Port': '-inf', 'Annex': inf}

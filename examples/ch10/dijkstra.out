@@ -1,0 +1,8 @@
+finalise North at  0
+finalise East  at  4
+finalise Hub   at 12
+finalise West  at 19
+finalise South at 25
+finalise Port  at 34
+North to Port: ['North', 'East', 'Port'] 34
+stale heap entries skipped: 1

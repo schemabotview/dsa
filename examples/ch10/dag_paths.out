@@ -1,0 +1,2 @@
+{'Depot': 0, 'A': 4, 'B': 3, 'C': 10, 'Drop': 12}
+Drop <- C <- A <- B <- Depot

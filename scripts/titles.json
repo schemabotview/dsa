@@ -8,5 +8,6 @@
   "ch06": "Binary Search Trees, AVL Rotations and B-Trees Explained",
   "ch07": "Heaps and Priority Queues: Heapify, Heapsort and Top-K",
   "ch08": "Backtracking and Branch and Bound: Exhaustive Search Explained",
-  "ch09": "Graph Algorithms: BFS, DFS, Topological Sort and Strongly Connected Components"
+  "ch09": "Graph Algorithms: BFS, DFS, Topological Sort and Strongly Connected Components",
+  "ch10": "Dijkstra, Bellman-Ford and Minimum Spanning Trees Explained"
 }
