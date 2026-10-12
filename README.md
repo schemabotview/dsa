@@ -1,17 +1,17 @@
 # dsa — Data Structures & Algorithms
 
 The **Data Structures & Algorithms** GraphL concept app, served at `graphl.in/dsa/`. The syllabus is
-[`DSA-COURSE-PLAN.md`](DSA-COURSE-PLAN.md): 14 chapters, each authored as one course of 2–4 on-screen
-sections per plan section. Scaffolded from `schemabotview/content-repo-template`.
+[`DSA-COURSE-PLAN.md`](DSA-COURSE-PLAN.md): 14 chapters, each authored as one course with one on-screen
+section per plan section. Scaffolded from `schemabotview/content-repo-template`.
 
 | course | chapter | status |
 | --- | --- | --- |
-| `ch01` | Problems, Algorithms, and Correctness — 21 sections | authored; narration audio not generated yet |
+| `ch01` | Problems, Algorithms, and Correctness — 7 sections | authored; narration audio not generated yet |
 | `ch02`–`ch14` | see the plan | not started |
 
 ```sh
 npm install
-npm run dev          # http://localhost:5173 — e.g. #/ch01-loop-invariant
+npm run dev          # http://localhost:5173 — e.g. #/ch01-invariants-and-termination
 ```
 
 ## The content model

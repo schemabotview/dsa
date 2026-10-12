@@ -7,8 +7,10 @@
 
 The **Data Structures & Algorithms** GraphL concept app, served at `graphl.in/dsa/`. The syllabus is
 `DSA-COURSE-PLAN.md`: 14 chapters, 106 plan sections. **One chapter = one course** (`ch01` … `ch14`).
-A plan section is too big for one frame, so each becomes **2–4 on-screen sections**; every course's
-`index.ts` carries the plan-section → section mapping in a comment.
+**One plan section = one on-screen section**, in plan order — the section count matches the plan
+(7, 8, 8, 8, 7, 8, 7, 7, 8, 8, 6, 8, 7, 9). Frames are dense by design: the slide carries the key
+points of the whole plan section, the narration carries the full explanation, and the scene combines
+the plan's worked illustrations into one board.
 
 A **section** is `(scene, slide, narration)` and is one segment of the course video. One section =
 one slide. The render engine is `@graphlearning/flow`; the app shell is `@graphlearning/shell` — both
@@ -17,15 +19,15 @@ published packages pinned by version (`flow@^1.2.0`, `shell@^0.8.0`). This repo'
 
 ## Route contract
 
-`#/<course>-<section>`, e.g. `#/ch01-loop-invariant`. `#/` is the catalog. `?capture=1` goes
-**before** the hash (`/?capture=1#/ch01-loop-invariant`) — after it, the shell reads it as part of
+`#/<course>-<section>`, e.g. `#/ch01-invariants-and-termination`. `#/` is the catalog. `?capture=1`
+goes **before** the hash (`/?capture=1#/ch01-invariants-and-termination`) — after it, the shell reads it as part of
 the slug and renders "no scene or slug".
 
 ## Course arc
 
 | course | chapter | sections | status |
 | --- | --- | --- | --- |
-| `ch01` | Problems, Algorithms, and Correctness | 21 (plan 1.1–1.7 × 3) | authored, no audio yet |
+| `ch01` | Problems, Algorithms, and Correctness | 7 (plan 1.1–1.7) | authored, no audio yet |
 | `ch02`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
 
 The running example is the **delivery planner**: `examples/ch01/planner.py` defines `Parcel(pid,
@@ -55,24 +57,18 @@ slide gets a sentence in the narration, so the two halves stay derived from one 
 
 ## Scene inventory — ch01
 
-| scene | kind | used by |
+| scene | kind | section |
 | --- | --- | --- |
-| `problem-instances` | groups of leaves | 01 |
-| `contract` | list cards → leaf → list card | 02 |
-| `duplicate-policies` | memory → data table | 03 |
-| `task-to-model` | leaf → group | 04 |
-| `constraint-objective` | two LR rows of memory + leaves | 05 |
-| `assumptions` | group, 2 cols | 06 |
-| `baseline-roles` | leaf → group | 07 |
-| `pseudocode` | code card → data table | 08 |
-| `python-baseline`, `trace-hit`, `counterexample`, `boundary-cases`, `arithmetic` | code → output | 09, 11, 16, 17, 21 |
-| `program-state` | code → memory | 10 |
-| `trace-miss` | two data tables | 12 |
-| `invariant` | leaf → memory with group brackets | 13 |
-| `invariant-proof` | TB chain of leaves | 14 |
-| `termination` | plot | 15 |
-| `evidence` | two groups, paired edges | 18 |
-| `aliasing`, `copies` | code → output → object graph | 19, 20 |
+| `problem-contract` | instances group → contract (list → leaf → list) → data table | 01 |
+| `modelling` | leaf → model group → assumptions group | 02 |
+| `baseline` | pseudocode → Python → output (code cards) | 03 |
+| `execution` | code → output → two hand-traced data tables | 04 |
+| `invariant` | memory with brackets → leaf → LR proof chain → leaf | 05 |
+| `evidence` | code → (output + list card) | 06 |
+| `representation` | code → output → object graph | 07 |
+
+`examples/ch01/` also keeps `aliasing.py`, `boundary_cases.py` and `arithmetic.py`, which no card
+shows: they back claims made on slides 06 and 07, and `npm run examples` keeps those claims true.
 
 ## Layout lessons from ch01
 
@@ -80,6 +76,8 @@ slide gets a sentence in the narration, so the two halves stay derived from one 
   a third of the pane's height. Five-step pipelines go in two LR rows nested in TB groups
   (`constraint-objective`).
 - Plot `label`s need `labelAt` as soon as two series end near the same corner.
+- **Keep the slide `##` to one line (≲ 30 chars).** `check` models the heading as a single line, so a
+  wrapped heading adds ~50px it cannot see. `Section.title` (the catalog) can stay the full plan title.
 - `@graphlearning/flow` 1.3.0 logs a React "unique key" warning for every **data** table (its cell
   renderer omits keys). Dev-only and harmless; it is an engine bug, not a content error.
 

@@ -2,11 +2,11 @@ import type { Scene } from '@graphlearning/flow'
 import code from '../../../examples/ch01/shallow_copy.py?raw'
 import out from '../../../examples/ch01/shallow_copy.out?raw'
 
-// §1.7 — shallow and deep copies: the script, what it printed, and the object graph that explains
-// the output — which copies share the parcel and which do not.
-export const copies: Scene = {
-  id: 'copies',
-  title: 'Shallow and deep copies',
+// §1.7 — names, references and copies: the script, what it printed, and the object graph that
+// explains the output — which names share the parcel and which do not.
+export const representation: Scene = {
+  id: 'representation',
+  title: 'Names, references and copies',
   flow: 'TB',
   nodes: [
     { id: 'code', kind: 'code', filename: 'shallow_copy.py', label: code.trimEnd() },

@@ -1,38 +1,34 @@
 import type { Scene } from '@graphlearning/flow'
+import code from '../../../examples/ch01/buggy_find.py?raw'
+import out from '../../../examples/ch01/buggy_find.out?raw'
 
-// §1.6 — what each kind of evidence reaches. Tests cover the inputs they name; an invariant proof
-// covers every input satisfying the precondition; one counterexample refutes a universal claim.
+// §1.6 — a plausible bug that passes its tests, the one instance that refutes it, and the boundary
+// checklist that would have reached it.
 export const evidence: Scene = {
   id: 'evidence',
-  title: 'What each kind of evidence reaches',
-  flow: 'LR',
+  title: 'Passing tests, wrong function',
+  flow: 'TB',
+  framed: true,
   nodes: [
+    { id: 'code', kind: 'code', filename: 'buggy_find.py', label: code.trimEnd() },
     {
-      id: 'kinds',
-      label: 'Evidence',
+      id: 'result',
+      label: 'What the run shows',
       pattern: 'group',
-      cols: 1,
+      flow: 'LR',
       children: [
-        { id: 'tests', label: 'Six tests pass', sub: 'empty, first, last, miss, …', pattern: 'network', icon: 'circlecheck' },
-        { id: 'proof', label: 'Invariant proof', sub: 'init, maintenance, exit', pattern: 'service', icon: 'shieldcheck' },
-        { id: 'cex', label: 'One failure', sub: 'P-317 returns None', pattern: 'warn', icon: 'bug' },
-      ],
-    },
-    {
-      id: 'reach',
-      label: 'Establishes',
-      pattern: 'group',
-      cols: 1,
-      children: [
-        { id: 'covered', label: 'Those six', sub: 'nothing about the rest', pattern: 'storage', icon: 'boxes' },
-        { id: 'all', label: 'Every valid input', sub: 'under the stated precondition', pattern: 'external', icon: 'globe' },
-        { id: 'refuted', label: 'Claim is false', sub: 'no test count undoes it', pattern: 'warn', icon: 'ban' },
+        { id: 'out', kind: 'code', filename: 'output · CPython 3.14.6', label: out.trimEnd(), pattern: 'warn', hug: true },
+        {
+          id: 'checklist',
+          kind: 'list',
+          label: 'Boundary checklist',
+          sub: 'pick these on purpose',
+          icon: 'circlecheck',
+          pattern: 'network',
+          items: ['empty list, single item', 'target first, last, absent', 'duplicate pids', 'caller: test is not None'],
+        },
       ],
     },
   ],
-  edges: [
-    { source: 'tests', target: 'covered' },
-    { source: 'proof', target: 'all' },
-    { source: 'cex', target: 'refuted' },
-  ],
+  edges: [{ source: 'code', target: 'result', label: 'run' }],
 }
