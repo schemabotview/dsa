@@ -34,7 +34,8 @@ the slug and renders "no scene or slug".
 | `ch05` | Hashing, Sets, and Maps | 7 | authored, no audio yet |
 | `ch06` | Trees and Ordered Indexes | 8 | authored, no audio yet |
 | `ch07` | Heaps and Priority-Driven Processing | 7 | authored, no audio yet |
-| `ch08`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
+| `ch08` | Recursion, Exhaustive Search, and Pruning | 7 | authored, no audio yet |
+| `ch09`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
 
 The running example is the **delivery planner**: `examples/ch01/planner.py` defines `Parcel(pid,
 depot, weight)` and the four canonical parcels `P-104 / P-221 / P-317 / P-458`. Later chapters extend
@@ -104,6 +105,10 @@ output) · `space`, `timing` (code → output). One per section, 01–08.
 ## Scene inventory — ch07
 
 `pq-contract` (ops group → code → output) · `heap-layout` (tree beside array → code → output) · `sift`, `topk` (code → output) · `build-heap` (work-by-height table → code → output) · `heapsort`, `lazy` (code → output → comparison table). One per section, 01–07.
+
+## Scene inventory — ch08
+
+`recursive-contract`, `backtracking`, `explicit-stack` (code → output) · `state-space` (decision tree → code + output row) · `enumeration`, `duplicates` (code → output → table/group) · `branch-bound` (sound row above unsound row). One per section, 01–07.
 
 ## Layout lessons from ch01
 

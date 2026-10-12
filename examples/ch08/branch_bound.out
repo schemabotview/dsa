@@ -1,0 +1,2 @@
+prune=False  best 8700  nodes 98
+prune=True   best 8700  nodes 38

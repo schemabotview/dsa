@@ -1,0 +1,6 @@
+2^20 = 1048576
+limit: 1000
+explicit stack reaches depth 5000
+n=20: 1.05e+06 leaves
+n=40: 1.10e+12 leaves
+n=60: 1.15e+18 leaves

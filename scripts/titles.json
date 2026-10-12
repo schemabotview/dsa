@@ -6,5 +6,6 @@
   "ch04": "Binary Search, Merge Sort, Quicksort and Sorting Lower Bounds",
   "ch05": "Hash Tables Explained: Chaining, Probing, Load Factor and Attacks",
   "ch06": "Binary Search Trees, AVL Rotations and B-Trees Explained",
-  "ch07": "Heaps and Priority Queues: Heapify, Heapsort and Top-K"
+  "ch07": "Heaps and Priority Queues: Heapify, Heapsort and Top-K",
+  "ch08": "Backtracking and Branch and Bound: Exhaustive Search Explained"
 }

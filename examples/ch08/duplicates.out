@@ -1,0 +1,2 @@
+naive:     ['ENN', 'ENN', 'NEN', 'NNE', 'NEN', 'NNE']
+canonical: ['ENN', 'NEN', 'NNE']

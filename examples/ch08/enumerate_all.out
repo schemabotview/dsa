@@ -1,0 +1,4 @@
+subsets: [[], ['N'], ['E'], ['N', 'E'], ['W'], ['N', 'W'], ['E', 'W'], ['N', 'E', 'W']]
+perms:   ['NEW', 'NWE', 'ENW', 'EWN', 'WNE', 'WEN']
+True True
+2 of 3: [('N', 'E'), ('N', 'W'), ('E', 'W')] 3
