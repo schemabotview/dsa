@@ -12,5 +12,6 @@
   "ch10": "Dijkstra, Bellman-Ford and Minimum Spanning Trees Explained",
   "ch11": "Greedy Algorithms: Exchange Arguments, Interval Scheduling and Huffman Coding",
   "ch12": "Dynamic Programming Explained: Memoisation, Knapsack and Edit Distance",
-  "ch13": "String Searching: Tries, KMP, Rabin-Karp and Suffix Arrays"
+  "ch13": "String Searching: Tries, KMP, Rabin-Karp and Suffix Arrays",
+  "ch14": "P vs NP, Reductions, Approximation and Algorithm Design in Practice"
 }

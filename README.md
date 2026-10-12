@@ -4,10 +4,24 @@ The **Data Structures & Algorithms** GraphL concept app, served at `graphl.in/ds
 [`DSA-COURSE-PLAN.md`](DSA-COURSE-PLAN.md): 14 chapters, each authored as one course with one on-screen
 section per plan section. Scaffolded from `schemabotview/content-repo-template`.
 
-| course | chapter | status |
+| course | chapter | sections |
 | --- | --- | --- |
-| `ch01` | Problems, Algorithms, and Correctness — 7 sections | authored; narration audio not generated yet |
-| `ch02`–`ch14` | see the plan | being authored, one commit per chapter |
+| `ch01` | Problems, Algorithms, and Correctness | 7 |
+| `ch02` | Analysing Time, Space, and Growth | 8 |
+| `ch03` | Sequences, Links, Stacks, and Queues | 8 |
+| `ch04` | Ordered Data, Searching, and Sorting | 8 |
+| `ch05` | Hashing, Sets, and Maps | 7 |
+| `ch06` | Trees and Ordered Indexes | 8 |
+| `ch07` | Heaps and Priority-Driven Processing | 7 |
+| `ch08` | Recursion, Exhaustive Search, and Pruning | 7 |
+| `ch09` | Graph Representation and Traversal | 8 |
+| `ch10` | Shortest Paths and Spanning Networks | 8 |
+| `ch11` | Greedy Design and Exchange Reasoning | 6 |
+| `ch12` | Dynamic Programming and State Design | 8 |
+| `ch13` | Strings and Prefix-Based Structures | 7 |
+| `ch14` | Computational Limits and Integrated Algorithm Design | 9 |
+
+All 106 sections are authored. Narration audio is not generated yet: run the Colab notebook per course.
 
 ```sh
 npm install

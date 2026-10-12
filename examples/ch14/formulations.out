@@ -1,0 +1,4 @@
+optimisation: best load = 8700
+decision: load >= 8700? True
+decision: load >= 8800? False
+binary search, 14 decision calls: 8700

@@ -12,11 +12,12 @@ import { ch10Scenes } from './ch10'
 import { ch11Scenes } from './ch11'
 import { ch12Scenes } from './ch12'
 import { ch13Scenes } from './ch13'
+import { ch14Scenes } from './ch14'
 
 // Scene registry. Sections reference scenes by id; scenes are grouped by course (one folder each,
 // mirroring src/content). Ids are globally unique across courses, so the flat lookup below is
 // unambiguous. Courses are added here as each is authored.
-const ALL: Scene[] = [...ch01Scenes, ...ch02Scenes, ...ch03Scenes, ...ch04Scenes, ...ch05Scenes, ...ch06Scenes, ...ch07Scenes, ...ch08Scenes, ...ch09Scenes, ...ch10Scenes, ...ch11Scenes, ...ch12Scenes, ...ch13Scenes]
+const ALL: Scene[] = [...ch01Scenes, ...ch02Scenes, ...ch03Scenes, ...ch04Scenes, ...ch05Scenes, ...ch06Scenes, ...ch07Scenes, ...ch08Scenes, ...ch09Scenes, ...ch10Scenes, ...ch11Scenes, ...ch12Scenes, ...ch13Scenes, ...ch14Scenes]
 
 export const SCENES: Record<string, Scene> = Object.fromEntries(ALL.map((s) => [s.id, s]))
 

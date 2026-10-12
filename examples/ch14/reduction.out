@@ -1,0 +1,4 @@
+target  direct  via partition
+     9  True    True
+    10  True    True
+    30  False   False

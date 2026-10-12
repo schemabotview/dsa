@@ -1,0 +1,13 @@
+record = {
+    "problem": "load today's parcels into vans; plan tours",
+    "workload": "~400 parcels, 12 vans, re-plan hourly",
+    "model": "grams; road minutes; depots as a graph",
+    "lookups": "dict by parcel id: expected O(1)",
+    "routes": "Dijkstra per depot: minutes are >= 0",
+    "loading": "knapsack DP per van: 9000 g, exact",
+    "touring": "NP-hard: nearest neighbour, measured",
+    "evidence": "examples run; DP checked by brute force",
+    "limits": "no live traffic; tours not proven optimal",
+}
+for key, value in record.items():
+    print(f"{key:9} {value}")

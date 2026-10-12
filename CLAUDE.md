@@ -40,7 +40,7 @@ the slug and renders "no scene or slug".
 | `ch11` | Greedy Design and Exchange Reasoning | 6 | authored, no audio yet |
 | `ch12` | Dynamic Programming and State Design | 8 | authored, no audio yet |
 | `ch13` | Strings and Prefix-Based Structures | 7 | authored, no audio yet |
-| `ch14`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
+| `ch14` | Computational Limits and Integrated Algorithm Design | 9 | authored, no audio yet |
 
 The running example is the **delivery planner**: `examples/ch01/planner.py` defines `Parcel(pid,
 depot, weight)` and the four canonical parcels `P-104 / P-221 / P-317 / P-458`. Later chapters extend
@@ -134,6 +134,10 @@ output) · `space`, `timing` (code → output). One per section, 01–08.
 ## Scene inventory — ch13
 
 `units`, `naive` (table → code → output) · `trie`, `kmp` (row of structure + code → output) · `rolling` (code → output) · `suffix-array` (row of code + output → memory block) · `workload` (tool table → recorded timing row). `workload.measured` is a recorded timing, never diffed.
+
+## Scene inventory — ch14
+
+`formulations`, `randomised` (code → output) · `reduction` (LR reduction chain → code → output) · `classes` (class table → code → output) · `approximation`, `online` (plot → code/output) · `range-queries` (row of code + output → comparison table) · `boundaries` (two groups) · `decision-record` (planner map → row of code + output).
 
 ## Layout lessons from ch01
 
