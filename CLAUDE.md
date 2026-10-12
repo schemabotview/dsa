@@ -30,7 +30,8 @@ the slug and renders "no scene or slug".
 | `ch01` | Problems, Algorithms, and Correctness | 7 (plan 1.1–1.7) | authored, no audio yet |
 | `ch02` | Analysing Time, Space, and Growth | 8 | authored, no audio yet |
 | `ch03` | Sequences, Links, Stacks, and Queues | 8 | authored, no audio yet |
-| `ch04`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
+| `ch04` | Ordered Data, Searching, and Sorting | 8 | authored, no audio yet |
+| `ch05`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
 
 The running example is the **delivery planner**: `examples/ch01/planner.py` defines `Parcel(pid,
 depot, weight)` and the four canonical parcels `P-104 / P-221 / P-317 / P-458`. Later chapters extend
@@ -84,6 +85,10 @@ output) · `space`, `timing` (code → output). One per section, 01–08.
 ## Scene inventory — ch03
 
 `arrays` (memory + leaf → code → output) · `dynamic-array`, `deque`, `tradeoffs` (… → code → output) · `singly-linked` (LR chain → code → output) · `doubly-linked` (LR ring → class file → demo output) · `stack`, `ring-buffer` (memory state → code → output). One per section, 01–08.
+
+## Scene inventory — ch04
+
+`keys` (code → output → table) · `binary-search`, `quicksort` (memory regions → code → output) · `simple-sorts`, `merge-sort`, `counting-radix`, `quickselect` (code → output) · `decision-tree` (comparison tree → row of lower-bound output and two-pointer code/output). One per section, 01–08.
 
 ## Layout lessons from ch01
 
