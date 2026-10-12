@@ -1,0 +1,4 @@
+n=   4  m=   8  load=0.50  moves=0
+n=   5  m=  16  load=0.31  moves=4
+n= 100  m= 256  load=0.39  moves=124
+n=1000  m=2048  load=0.49  moves=1020

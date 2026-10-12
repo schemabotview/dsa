@@ -1,0 +1,4 @@
+North None
+TypeError: cannot use 'list' as a dict key (unhashable type: 'list')
+{1: 'bool'}
+False False
