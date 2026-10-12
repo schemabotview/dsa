@@ -32,7 +32,8 @@ the slug and renders "no scene or slug".
 | `ch03` | Sequences, Links, Stacks, and Queues | 8 | authored, no audio yet |
 | `ch04` | Ordered Data, Searching, and Sorting | 8 | authored, no audio yet |
 | `ch05` | Hashing, Sets, and Maps | 7 | authored, no audio yet |
-| `ch06`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
+| `ch06` | Trees and Ordered Indexes | 8 | authored, no audio yet |
+| `ch07`–`ch14` | see `DSA-COURSE-PLAN.md` | — | not started |
 
 The running example is the **delivery planner**: `examples/ch01/planner.py` defines `Parcel(pid,
 depot, weight)` and the four canonical parcels `P-104 / P-221 / P-317 / P-458`. Later chapters extend
@@ -94,6 +95,10 @@ output) · `space`, `timing` (code → output). One per section, 01–08.
 ## Scene inventory — ch05
 
 `contracts`, `applications` (code → output) · `hash-function` (LR pipeline → code → output) · `chaining`, `probing` (memory state → code → output) · `resizing` (load-factor plot → class → output) · `adversarial` (code → output → defences group). One per section, 01–07. Examples use their own deterministic hash `hashing.h`: Python's `str` hash is randomised per process, so it cannot back a checked `.out`.
+
+## Scene inventory — ch06
+
+`tree-anatomy`, `augmented` (7-node depot tree → code → output) · `traversals` (stack memory → code → output) · `bst-search` (module → demo output → property group) · `bst-delete` (cases group → code → output) · `skew` (chain beside balanced tree → code → output) · `avl` (before/after rotation → code → output) · `btree` (B-tree → cost-model table → output). One per section, 01–08.
 
 ## Layout lessons from ch01
 

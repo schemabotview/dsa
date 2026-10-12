@@ -3,6 +3,7 @@ import { ch02 } from './ch02'
 import { ch03 } from './ch03'
 import { ch04 } from './ch04'
 import { ch05 } from './ch05'
+import { ch06 } from './ch06'
 import type { Course, Section } from './types'
 
 // Course registry, in syllabus order — one course per chapter of DSA-COURSE-PLAN.md. Courses are
@@ -13,6 +14,7 @@ export const COURSES: Record<string, Course> = {
   [ch03.id]: ch03,
   [ch04.id]: ch04,
   [ch05.id]: ch05,
+  [ch06.id]: ch06,
 }
 
 export type { Course, Section }

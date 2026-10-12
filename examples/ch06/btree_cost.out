@@ -1,0 +1,5 @@
+ branching   levels = block reads per lookup
+        2   30
+       16   8
+      256   4
+     1024   3

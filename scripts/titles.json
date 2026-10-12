@@ -4,5 +4,6 @@
   "ch02": "Big O, Omega and Theta: Analysing Algorithm Time and Space",
   "ch03": "Arrays, Linked Lists, Stacks and Queues Explained",
   "ch04": "Binary Search, Merge Sort, Quicksort and Sorting Lower Bounds",
-  "ch05": "Hash Tables Explained: Chaining, Probing, Load Factor and Attacks"
+  "ch05": "Hash Tables Explained: Chaining, Probing, Load Factor and Attacks",
+  "ch06": "Binary Search Trees, AVL Rotations and B-Trees Explained"
 }
