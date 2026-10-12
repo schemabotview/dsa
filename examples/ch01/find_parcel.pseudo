@@ -1,0 +1,8 @@
+FIND-PARCEL(parcels, target)
+  ▷ pre:  parcels is a finite sequence of records
+  ▷ post: the least i with parcels[i].pid = target,
+  ▷       or NONE when no such i exists
+  for i ← 0 to length(parcels) − 1
+      if parcels[i].pid = target
+          return i
+  return NONE

@@ -1,0 +1,7 @@
+empty list   -> None
+single, hit  -> 0
+first item   -> 0
+last item    -> 3
+missing      -> None
+duplicate    -> 0
+if i: False   if i is not None: True

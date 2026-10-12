@@ -1,0 +1,11 @@
+/* This repo's whole design surface — the three tokens @graphlearning/shell leaves to the repo.
+   Imported AFTER the shell's stylesheet in main.tsx, so these win the cascade.
+
+   Sky blue as the identity colour (the catalog card and the thumbnail gradient in
+   scripts/concept.json use the same anchor), a 30% tint of it for hover, and orange as the counter
+   tone so `###` subheadings read clearly against the brand-blue `##`. */
+:root {
+  --brand: #0ea5e9; /* the subject's identity colour */
+  --brand-hover: #56c0f0; /* a lighter tint — the eyebrow's hover state */
+  --accent-2: #fb923c; /* the counter tone — the slide's `###` subheading */
+}
