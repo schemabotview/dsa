@@ -6,26 +6,26 @@ section per plan section. Scaffolded from `schemabotview/content-repo-template`.
 
 | course | chapter | sections |
 | --- | --- | --- |
-| `ch01` | Problems, Algorithms, and Correctness | 7 |
-| `ch02` | Analysing Time, Space, and Growth | 8 |
-| `ch03` | Sequences, Links, Stacks, and Queues | 8 |
-| `ch04` | Ordered Data, Searching, and Sorting | 8 |
-| `ch05` | Hashing, Sets, and Maps | 7 |
-| `ch06` | Trees and Ordered Indexes | 8 |
-| `ch07` | Heaps and Priority-Driven Processing | 7 |
-| `ch08` | Recursion, Exhaustive Search, and Pruning | 7 |
-| `ch09` | Graph Representation and Traversal | 8 |
-| `ch10` | Shortest Paths and Spanning Networks | 8 |
-| `ch11` | Greedy Design and Exchange Reasoning | 6 |
-| `ch12` | Dynamic Programming and State Design | 8 |
-| `ch13` | Strings and Prefix-Based Structures | 7 |
-| `ch14` | Computational Limits and Integrated Algorithm Design | 9 |
+| `correctness` | Problems, Algorithms, and Correctness | 7 |
+| `analysis` | Analysing Time, Space, and Growth | 8 |
+| `sequences` | Sequences, Links, Stacks, and Queues | 8 |
+| `sorting` | Ordered Data, Searching, and Sorting | 8 |
+| `hashing` | Hashing, Sets, and Maps | 7 |
+| `trees` | Trees and Ordered Indexes | 8 |
+| `heaps` | Heaps and Priority-Driven Processing | 7 |
+| `exhaustive-search` | Recursion, Exhaustive Search, and Pruning | 7 |
+| `graphs` | Graph Representation and Traversal | 8 |
+| `shortest-paths` | Shortest Paths and Spanning Networks | 8 |
+| `greedy` | Greedy Design and Exchange Reasoning | 6 |
+| `dynamic-programming` | Dynamic Programming and State Design | 8 |
+| `strings` | Strings and Prefix-Based Structures | 7 |
+| `limits` | Computational Limits and Integrated Algorithm Design | 9 |
 
 All 106 sections are authored. Narration audio is not generated yet: run the Colab notebook per course.
 
 ```sh
 npm install
-npm run dev          # http://localhost:5173 — e.g. #/ch01-invariants-and-termination
+npm run dev          # http://localhost:5173 — e.g. #/correctness-invariants-and-termination
 ```
 
 ## The content model

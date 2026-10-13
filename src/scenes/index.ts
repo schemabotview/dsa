@@ -1,23 +1,38 @@
 import type { Scene } from '@graphlearning/flow'
-import { ch01Scenes } from './ch01'
-import { ch02Scenes } from './ch02'
-import { ch03Scenes } from './ch03'
-import { ch04Scenes } from './ch04'
-import { ch05Scenes } from './ch05'
-import { ch06Scenes } from './ch06'
-import { ch07Scenes } from './ch07'
-import { ch08Scenes } from './ch08'
-import { ch09Scenes } from './ch09'
-import { ch10Scenes } from './ch10'
-import { ch11Scenes } from './ch11'
-import { ch12Scenes } from './ch12'
-import { ch13Scenes } from './ch13'
-import { ch14Scenes } from './ch14'
+import { correctnessScenes } from './correctness'
+import { analysisScenes } from './analysis'
+import { sequencesScenes } from './sequences'
+import { sortingScenes } from './sorting'
+import { hashingScenes } from './hashing'
+import { treesScenes } from './trees'
+import { heapsScenes } from './heaps'
+import { exhaustiveSearchScenes } from './exhaustive-search'
+import { graphsScenes } from './graphs'
+import { shortestPathsScenes } from './shortest-paths'
+import { greedyScenes } from './greedy'
+import { dynamicProgrammingScenes } from './dynamic-programming'
+import { stringsScenes } from './strings'
+import { limitsScenes } from './limits'
 
 // Scene registry. Sections reference scenes by id; scenes are grouped by course (one folder each,
 // mirroring src/content). Ids are globally unique across courses, so the flat lookup below is
 // unambiguous. Courses are added here as each is authored.
-const ALL: Scene[] = [...ch01Scenes, ...ch02Scenes, ...ch03Scenes, ...ch04Scenes, ...ch05Scenes, ...ch06Scenes, ...ch07Scenes, ...ch08Scenes, ...ch09Scenes, ...ch10Scenes, ...ch11Scenes, ...ch12Scenes, ...ch13Scenes, ...ch14Scenes]
+const ALL: Scene[] = [
+  ...correctnessScenes,
+  ...analysisScenes,
+  ...sequencesScenes,
+  ...sortingScenes,
+  ...hashingScenes,
+  ...treesScenes,
+  ...heapsScenes,
+  ...exhaustiveSearchScenes,
+  ...graphsScenes,
+  ...shortestPathsScenes,
+  ...greedyScenes,
+  ...dynamicProgrammingScenes,
+  ...stringsScenes,
+  ...limitsScenes,
+]
 
 export const SCENES: Record<string, Scene> = Object.fromEntries(ALL.map((s) => [s.id, s]))
 

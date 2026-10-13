@@ -20,9 +20,9 @@ PY = shutil.which("python3.14") or sys.executable
 update = "--update" in sys.argv
 failed = 0
 
-for out in sorted(ROOT.glob("ch*/*.out")):
+for out in sorted(ROOT.glob("*/*.out")):
     script = out.with_suffix(".py")
-    env = {**os.environ, "PYTHONPATH": str(ROOT / "ch01")}   # the canonical planner.py
+    env = {**os.environ, "PYTHONPATH": str(ROOT / "correctness")}   # the canonical planner.py
     run = subprocess.run([PY, script.name], cwd=script.parent, env=env, capture_output=True, text=True)
     got = run.stdout + run.stderr
     if update:

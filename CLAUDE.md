@@ -6,7 +6,9 @@
 ## What this repo is
 
 The **Data Structures & Algorithms** GraphL concept app, served at `graphl.in/dsa/`. The syllabus is
-`DSA-COURSE-PLAN.md`: 14 chapters, 106 plan sections. **One chapter = one course** (`ch01` … `ch14`).
+`DSA-COURSE-PLAN.md`: 14 chapters, 106 plan sections. **One chapter = one course**, named for its subject (`correctness` … `limits`, as in the `sql` and
+`apache-spark-ct` repos). The course id is the route prefix and the folder name under
+`src/content/`, `src/scenes/`, `examples/` and `public/audio/`.
 **One plan section = one on-screen section**, in plan order — the section count matches the plan
 (7, 8, 8, 8, 7, 8, 7, 7, 8, 8, 6, 8, 7, 9). Frames are dense by design: the slide carries the key
 points of the whole plan section, the narration carries the full explanation, and the scene combines
@@ -19,37 +21,37 @@ published packages pinned by version (`flow@^1.2.0`, `shell@^0.8.0`). This repo'
 
 ## Route contract
 
-`#/<course>-<section>`, e.g. `#/ch01-invariants-and-termination`. `#/` is the catalog. `?capture=1`
-goes **before** the hash (`/?capture=1#/ch01-invariants-and-termination`) — after it, the shell reads it as part of
+`#/<course>-<section>`, e.g. `#/correctness-invariants-and-termination`. `#/` is the catalog. `?capture=1`
+goes **before** the hash (`/?capture=1#/correctness-invariants-and-termination`) — after it, the shell reads it as part of
 the slug and renders "no scene or slug".
 
 ## Course arc
 
 | course | chapter | sections | status |
 | --- | --- | --- | --- |
-| `ch01` | Problems, Algorithms, and Correctness | 7 (plan 1.1–1.7) | authored, no audio yet |
-| `ch02` | Analysing Time, Space, and Growth | 8 | authored, no audio yet |
-| `ch03` | Sequences, Links, Stacks, and Queues | 8 | authored, no audio yet |
-| `ch04` | Ordered Data, Searching, and Sorting | 8 | authored, no audio yet |
-| `ch05` | Hashing, Sets, and Maps | 7 | authored, no audio yet |
-| `ch06` | Trees and Ordered Indexes | 8 | authored, no audio yet |
-| `ch07` | Heaps and Priority-Driven Processing | 7 | authored, no audio yet |
-| `ch08` | Recursion, Exhaustive Search, and Pruning | 7 | authored, no audio yet |
-| `ch09` | Graph Representation and Traversal | 8 | authored, no audio yet |
-| `ch10` | Shortest Paths and Spanning Networks | 8 | authored, no audio yet |
-| `ch11` | Greedy Design and Exchange Reasoning | 6 | authored, no audio yet |
-| `ch12` | Dynamic Programming and State Design | 8 | authored, no audio yet |
-| `ch13` | Strings and Prefix-Based Structures | 7 | authored, no audio yet |
-| `ch14` | Computational Limits and Integrated Algorithm Design | 9 | authored, no audio yet |
+| `correctness` | Problems, Algorithms, and Correctness | 7 (plan 1.1–1.7) | authored, no audio yet |
+| `analysis` | Analysing Time, Space, and Growth | 8 | authored, no audio yet |
+| `sequences` | Sequences, Links, Stacks, and Queues | 8 | authored, no audio yet |
+| `sorting` | Ordered Data, Searching, and Sorting | 8 | authored, no audio yet |
+| `hashing` | Hashing, Sets, and Maps | 7 | authored, no audio yet |
+| `trees` | Trees and Ordered Indexes | 8 | authored, no audio yet |
+| `heaps` | Heaps and Priority-Driven Processing | 7 | authored, no audio yet |
+| `exhaustive-search` | Recursion, Exhaustive Search, and Pruning | 7 | authored, no audio yet |
+| `graphs` | Graph Representation and Traversal | 8 | authored, no audio yet |
+| `shortest-paths` | Shortest Paths and Spanning Networks | 8 | authored, no audio yet |
+| `greedy` | Greedy Design and Exchange Reasoning | 6 | authored, no audio yet |
+| `dynamic-programming` | Dynamic Programming and State Design | 8 | authored, no audio yet |
+| `strings` | Strings and Prefix-Based Structures | 7 | authored, no audio yet |
+| `limits` | Computational Limits and Integrated Algorithm Design | 9 | authored, no audio yet |
 
-The running example is the **delivery planner**: `examples/ch01/planner.py` defines `Parcel(pid,
+The running example is the **delivery planner**: `examples/correctness/planner.py` defines `Parcel(pid,
 depot, weight)` and the four canonical parcels `P-104 / P-221 / P-317 / P-458`. Later chapters extend
 this dataset rather than invent a new one, so frames stay consistent across the course.
 
 ## Examples are executed, not typed
 
 Every code card that shows Python imports its file **verbatim** with vite `?raw`
-(`import code from '../../../examples/ch01/find_parcel.py?raw'`), and every output card imports the
+(`import code from '../../../examples/correctness/find_parcel.py?raw'`), and every output card imports the
 committed `.out` beside it. `npm run examples` re-runs each script under `python3.14` and fails if
 stdout differs from its `.out`; `python3 examples/run.py --update` rewrites them. So:
 
@@ -60,7 +62,7 @@ stdout differs from its `.out`; `python3 examples/run.py --update` rewrites them
   shrinks the whole board.
 - **Timing is the one exception.** It is not reproducible, so a timing script's output is recorded once
   as `<name>.measured` (never diffed by `run.py`) and its card is labelled `one recorded run`.
-- `run.py` puts `examples/ch01` on `PYTHONPATH`, so every chapter can `from planner import …`.
+- `run.py` puts `examples/correctness` on `PYTHONPATH`, so every chapter can `from planner import …`.
 - Version-dependent behaviour is called out where it is shown (e.g. `sum()` of floats is compensated
   since CPython 3.12, so `arithmetic.py` demonstrates rounding with an explicit `+=` loop).
 
@@ -70,7 +72,7 @@ Written for TTS, not the eye: no symbols (`≤`, `→`, `[0:i]`) — say them. I
 ("P three-seventeen"), operators are words ("double equals", "floor-divided"). Every point added to a
 slide gets a sentence in the narration, so the two halves stay derived from one idea.
 
-## Scene inventory — ch01
+## Scene inventory — correctness
 
 | scene | kind | section |
 | --- | --- | --- |
@@ -82,64 +84,64 @@ slide gets a sentence in the narration, so the two halves stay derived from one 
 | `evidence` | code → (output + list card) | 06 |
 | `representation` | code → output → object graph | 07 |
 
-`examples/ch01/` also keeps `aliasing.py`, `boundary_cases.py` and `arithmetic.py`, which no card
+`examples/correctness/` also keeps `aliasing.py`, `boundary_cases.py` and `arithmetic.py`, which no card
 shows: they back claims made on slides 06 and 07, and `npm run examples` keeps those claims true.
 
-## Scene inventory — ch02
+## Scene inventory — analysis
 
 `cost-model` (group → code → output) · `counting` (code → output + rules table) · `bounds` (plot →
 table) · `cases` (code → output → group) · `growth` (plot → output) · `recursion-tree` (call tree →
 output) · `space`, `timing` (code → output). One per section, 01–08.
 
-## Scene inventory — ch03
+## Scene inventory — sequences
 
 `arrays` (memory + leaf → code → output) · `dynamic-array`, `deque`, `tradeoffs` (… → code → output) · `singly-linked` (LR chain → code → output) · `doubly-linked` (LR ring → class file → demo output) · `stack`, `ring-buffer` (memory state → code → output). One per section, 01–08.
 
-## Scene inventory — ch04
+## Scene inventory — sorting
 
 `keys` (code → output → table) · `binary-search`, `quicksort` (memory regions → code → output) · `simple-sorts`, `merge-sort`, `counting-radix`, `quickselect` (code → output) · `decision-tree` (comparison tree → row of lower-bound output and two-pointer code/output). One per section, 01–08.
 
-## Scene inventory — ch05
+## Scene inventory — hashing
 
 `contracts`, `applications` (code → output) · `hash-function` (LR pipeline → code → output) · `chaining`, `probing` (memory state → code → output) · `resizing` (load-factor plot → class → output) · `adversarial` (code → output → defences group). One per section, 01–07. Examples use their own deterministic hash `hashing.h`: Python's `str` hash is randomised per process, so it cannot back a checked `.out`.
 
-## Scene inventory — ch06
+## Scene inventory — trees
 
 `tree-anatomy`, `augmented` (7-node depot tree → code → output) · `traversals` (stack memory → code → output) · `bst-search` (module → demo output → property group) · `bst-delete` (cases group → code → output) · `skew` (chain beside balanced tree → code → output) · `avl` (before/after rotation → code → output) · `btree` (B-tree → cost-model table → output). One per section, 01–08.
 
-## Scene inventory — ch07
+## Scene inventory — heaps
 
 `pq-contract` (ops group → code → output) · `heap-layout` (tree beside array → code → output) · `sift`, `topk` (code → output) · `build-heap` (work-by-height table → code → output) · `heapsort`, `lazy` (code → output → comparison table). One per section, 01–07.
 
-## Scene inventory — ch08
+## Scene inventory — exhaustive-search
 
 `recursive-contract`, `backtracking`, `explicit-stack` (code → output) · `state-space` (decision tree → code + output row) · `enumeration`, `duplicates` (code → output → table/group) · `branch-bound` (sound row above unsound row). One per section, 01–07.
 
-## Scene inventory — ch09
+## Scene inventory — graphs
 
-`graph-models`, `bfs` (row of TB graph + code → output) · `representations` (list table beside matrix table → code → output) · `dfs` (LR task graph with intervals → code → output) · `cycles` (diamond → code → output) · `topo` (in-degree table → code → output) · `scc` (component chain → module → demo output) · `traversal-cost` (code → output → table). Shared data: `examples/ch09/depots.py` (ROADS, TASKS).
+`graph-models`, `bfs` (row of TB graph + code → output) · `representations` (list table beside matrix table → code → output) · `dfs` (LR task graph with intervals → code → output) · `cycles` (diamond → code → output) · `topo` (in-degree table → code → output) · `scc` (component chain → module → demo output) · `traversal-cost` (code → output → table). Shared data: `examples/graphs/depots.py` (ROADS, TASKS).
 
-## Scene inventory — ch10
+## Scene inventory — shortest-paths
 
-`relaxation`, `union-find` (row of memory state + code → output) · `dag-paths` (row of table + code → output) · `dijkstra` (code → row of output, negative-edge graph, its output) · `bellman-ford`, `floyd`, `kruskal-prim` (code → output → table) · `spanning` (MST chain beside shortest-path tree → output). Shared data: `examples/ch10/weighted.py`.
+`relaxation`, `union-find` (row of memory state + code → output) · `dag-paths` (row of table + code → output) · `dijkstra` (code → row of output, negative-edge graph, its output) · `bellman-ford`, `floyd`, `kruskal-prim` (code → output → table) · `spanning` (MST chain beside shortest-path tree → output). Shared data: `examples/shortest-paths/weighted.py`.
 
-## Scene inventory — ch11
+## Scene inventory — greedy
 
 `greedy-choice` (parts group → code → output) · `exchange` (row of proof chain + code → output) · `intervals`, `weighted-fail` (timeline plot → row of code + output) · `huffman` (code tree → row of code + output) · `graph-greedy` (code → output → proofs table). Plot lines: `external` renders grey in plots, so highlighted series use an explicit hex.
 
-## Scene inventory — ch12
+## Scene inventory — dynamic-programming
 
-`overlap` (memo memory → code → output) · `recurrence` (data module → row of code + output) · `memo-table` (code → output → comparison table) · `reconstruct` (row of OPT memory + code → output) · `sequences` (code → row of two outputs) · `knapsack` (code → output) · `interval-dp` (code → output → DAG group) · `dp-costs` (row of code + output → output). Shared data: `examples/ch12/slots.py` (Chapter 11's weighted slots).
+`overlap` (memo memory → code → output) · `recurrence` (data module → row of code + output) · `memo-table` (code → output → comparison table) · `reconstruct` (row of OPT memory + code → output) · `sequences` (code → row of two outputs) · `knapsack` (code → output) · `interval-dp` (code → output → DAG group) · `dp-costs` (row of code + output → output). Shared data: `examples/dynamic-programming/slots.py` (Chapter 11's weighted slots).
 
-## Scene inventory — ch13
+## Scene inventory — strings
 
 `units`, `naive` (table → code → output) · `trie`, `kmp` (row of structure + code → output) · `rolling` (code → output) · `suffix-array` (row of code + output → memory block) · `workload` (tool table → recorded timing row). `workload.measured` is a recorded timing, never diffed.
 
-## Scene inventory — ch14
+## Scene inventory — limits
 
 `formulations`, `randomised` (code → output) · `reduction` (LR reduction chain → code → output) · `classes` (class table → code → output) · `approximation`, `online` (plot → code/output) · `range-queries` (row of code + output → comparison table) · `boundaries` (two groups) · `decision-record` (planner map → row of code + output).
 
-## Layout lessons from ch01
+## Layout lessons
 
 - **Prefer `flow: 'TB'`.** Every LR board of two or more wide nodes (memory, table, code) rendered at
   a third of the pane's height. Five-step pipelines go in two LR rows nested in TB groups
