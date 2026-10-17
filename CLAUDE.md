@@ -230,6 +230,35 @@ These are read off the rendered route by eye — `check` models no density at al
 from one repo's ~80 frames of diagram-and-code-card boards, so a deliberately sparse board can sit
 under them. Targets, not thresholds.
 
+## Thumbnail titles
+
+`scripts/titles.json` is the **publish** title — long and search-first, used for the YouTube title
+and the description. The **thumbnail** header is passed per run with `--title`, because
+`.thumb__title` in `@graphlearning/shell` is a fixed `9.4vh` with no auto-fit: the full publish title
+overflows the panel and clips its last word. Keep a thumb title ≲ 35 chars with no word over ~13
+(`Counterexamples` clips, `Approximation` fits), which lands on 2–3 lines.
+
+The thumb also needs `--section`, since the chosen board is rarely section 0. Current set — one
+`npx graphl-thumb <course> --section N --title "…"` per row, with `APP_URL` pointed at one dev
+server so all fourteen share it:
+
+| course | `--section` | scene | `--title` |
+| --- | --- | --- | --- |
+| `correctness` | 0 | `problem-contract` | Correctness & Loop Invariants |
+| `analysis` | 2 | `bounds` | Big O, Omega & Theta Bounds |
+| `sequences` | 0 | `arrays` | Arrays, Lists, Stacks & Queues |
+| `sorting` | 7 | `decision-tree` | Sorting, Search & Lower Bounds |
+| `hashing` | 4 | `resizing` | Hash Tables, Chaining & Probing |
+| `trees` | 0 | `tree-anatomy` | Binary Search Trees, AVL & B-Trees |
+| `heaps` | 1 | `heap-layout` | Heaps, Heapsort & Priority Queues |
+| `exhaustive-search` | 1 | `state-space` | Backtracking & Branch and Bound |
+| `graphs` | 0 | `graph-models` | BFS, DFS & Topological Sort |
+| `shortest-paths` | 5 | `spanning` | Dijkstra, Bellman-Ford & MSTs |
+| `greedy` | 2 | `intervals` | Greedy Algorithms & Exchange Proofs |
+| `dynamic-programming` | 3 | `reconstruct` | Dynamic Programming & Memoisation |
+| `strings` | 1 | `trie` | Tries, KMP, Rabin-Karp & Suffix Arrays |
+| `limits` | 2 | `classes` | P vs NP, Reductions & Approximation |
+
 ## Guards before handing over
 
 ```sh
